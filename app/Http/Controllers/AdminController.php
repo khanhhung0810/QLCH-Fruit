@@ -21,12 +21,14 @@ class AdminController extends Controller
        
         return view('admin.create');  
     }
+
     public function store(AddProductPostRequest $request)  {
         if ($request->hasFile('AnhSP')) {
-            $folder = 'site/img/upload-img-product';
+            $path = 'images';
             $name = $request->file('AnhSP')->getClientOriginalName();
-            $request->file('AnhSP')->storeAs($folder, $name, 'public');
+            $request->file('AnhSP')->move(public_path($path), $name);
             // dd($request->file('AnhSP'));
+
             $data = $request->all();
             $data['AnhSP'] = $name; 
             Product::create($data);

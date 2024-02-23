@@ -70,7 +70,7 @@
             <td>{{$item->MaSP}}</td>
             <td>{{$item->TenSP}}</td>
             <td>{{$item->LoaiSP}}</td>
-            <td><img src="{{ asset($item->AnhSP) }}" alt="" width="120"></td>
+            <td><img src="{{ url('images/'.$item->AnhSP) }}" alt="" width="120"></td>
             <td>{{$item->Gia}}</td>
             <td>{{$item->SoLuong}}</td>
             <td>       

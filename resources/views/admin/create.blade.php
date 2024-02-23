@@ -116,7 +116,6 @@
     //3. Lấy data đã nhập từ form
     var formData= new FormData(this);
     $.ajax({
-            // url: 'AdminController.php'
             url: $('#form-product').attr('action'),
             method: $('#form-product').attr('method'), 
             data: formData,
