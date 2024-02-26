@@ -14,8 +14,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $stt = 1;
+
         $categories = Category::all();
-        return view('admin.category_product', compact('categories'));
+        return view('admin.category_product', compact('categories','stt'));
     }
 
     /**
@@ -23,6 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        
         return view('admin.category_create');
     }
 
@@ -33,7 +36,7 @@ class CategoryController extends Controller
     {
         $data = $request->all();
         Category::create($data);
-        
+
         return redirect()->route('categories.index')->with('success', 'Danh mục đã được tạo thành công!');
     }
 
@@ -48,9 +51,11 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $categories)
     {
-        //
+        $categoryEdit = Category::findOrFail($categories);
+
+        return view('admin.category_edit', compact('categoryEdit'));
     }
 
     /**

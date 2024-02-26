@@ -9,10 +9,10 @@
             <th>Trạng thái</th>
             <th>Chức năng</th>
         </tr>
+
         @forelse ($categories as $item)
         <tr>
-            {{-- <td></td> --}}
-            <td>{{$item->id}}</td>
+            <td>{{ $stt++ }}</td>
             <td>{{$item->name}}</td>
             <td>
                 @if($item->status == 0)
@@ -22,10 +22,11 @@
                 @endif
             </td>
             <td>
+                <a class="button col-md-4 " href="{{ route('categories.edit',['categories'=>$item->id]) }} "><i class="fa fa-solid fa-pen-to-square"></i></a>
                 <form action="{{ route('categories.destroy',['categories'=>$item->id]) }}" method="post">
                     @csrf
                     @method('delete')
-                <button type="submit" class="button " ><i class="fa-solid fa-trash"></i></button>
+                <button type="submit" class="button col-md-4" ><i class="fa-solid fa-trash"></i></button>
                 </form>
             </td>
         </tr>
