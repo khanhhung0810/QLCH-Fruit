@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryProductPostRequest;
 
-class CatagoryController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        return view('admin.category_product', compact('categories'));
     }
 
     /**
@@ -20,15 +23,18 @@ class CatagoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.category_create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryProductPostRequest $request)
     {
-        //
+        $data = $request->all();
+        Category::create($data);
+        
+        return redirect()->route('categories.index')->with('success', 'Danh mục đã được tạo thành công!');
     }
 
     /**
@@ -58,8 +64,9 @@ class CatagoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($categories)
     {
-        //
+        Category::query()->find($categories)->delete();
+        return redirect()->back();
     }
 }
