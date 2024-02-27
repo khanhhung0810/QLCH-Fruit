@@ -62,8 +62,17 @@ class AdminController extends Controller
 
     public function update(Request $request, string $product)
     {
-        $products = Product::findOrFail($product);
-        $products->update($request->all());
+        $product = Product::findOrFail($product);
+        $product->update($request->all());
+    
+        if ($request->hasFile('AnhSP')) {
+            $path = 'images';
+            $name = $request->file('AnhSP')->getClientOriginalName();
+            $request->file('AnhSP')->move(public_path($path), $name);
+            $product->AnhSP = $name;
+            $product->save();
+        }
+    
         return redirect('dashboard');
 
      

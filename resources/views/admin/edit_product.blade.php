@@ -51,7 +51,7 @@
 <h2>Chỉnh sửa thông tin sản phẩm</h2>
 
 <div class="container">
-    <form action="{{ route('product.update', $products->MaSP) }}" method="POST">
+    <form action="{{ route('product.update', $products->MaSP) }}" method="POST"  enctype='multipart/form-data'>
         @csrf
         @method('PUT')
         <label for="product_code">Mã sản phẩm:</label>
@@ -68,6 +68,7 @@
 
         <label for="product_image">Ảnh sản phẩm:</label>
         <input type="file"  type="text" name="AnhSP" value={{$products->AnhSP}}>
+        <img src="{{ url('images/'.$products->AnhSP) }}" alt="" width="120">
 
         <label for="product_price">Giá:</label>
         <input type="number"  name="Gia" value={{$products->Gia}}>

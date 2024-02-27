@@ -53,10 +53,10 @@
 <div class="container">
     <form action="{{ route('product.update', $products->MaSP) }}" method="POST">
         <label for="product_code">Mã sản phẩm:</label>
-        <input type="text"  name="MaSP" value={{$products->MaSP}}>
+        <input type="text"  name="MaSP" value={{$products->MaSP}} @readonly(true)>
 
         <label for="product_name">Tên sản phẩm:</label>
-        <input type="text" name="TenSP" value={{$products->TenSP}}>
+        <input type="text" name="TenSP" value={{$products->TenSP}} @readonly(true)>
 
         {{-- <label for="product_type">Loại sản phẩm:</label>
         <select id="product_type" name="product_type">
@@ -65,13 +65,13 @@
         </select> --}}
 
         <label for="product_image">Ảnh sản phẩm:</label>
-        <input type="text"  name="AnhSP" value={{$products->AnhSP}}>
+        <img src="{{ url('images/'.$products->AnhSP) }}" alt="" width="200">
 
         <label for="product_price">Giá:</label>
-        <input type="number"  name="Gia" value={{$products->Gia}}>
+        <input type="number"  name="Gia" value={{$products->Gia}} @readonly(true)>
 
         <label for="product_quantity">Số lượng:</label>
-        <input type="number"  name="SoLuong" value={{$products->SoLuong}}>
+        <input type="number"  name="SoLuong" value={{$products->SoLuong}} @readonly(true)>
 
         <br>
         <button type="button" class="btn" onclick="window.history.back();">Quay về</button>
