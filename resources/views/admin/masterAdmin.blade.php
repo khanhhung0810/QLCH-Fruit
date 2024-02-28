@@ -32,14 +32,14 @@
           </div>
         </div>
         <!-- Sidebar navigation-->
-        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+        <nav class="sidebar-nav scroll-sidebar " data-simplebar="">
           <ul id="sidebarnav">
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">Home</span>
             </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('dashboard') }}" aria-expanded="false">
+            <li class="sidebar-item ">
+              <a class="sidebar-link text-decoration-none" href="{{ url('dashboard') }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-layout-dashboard"></i>
                 </span>
@@ -47,7 +47,7 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('category') }}" aria-expanded="false">
+              <a class="sidebar-link text-decoration-none" href="{{ url('category') }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-layout-dashboard"></i>
                 </span>

@@ -11,5 +11,14 @@ class Category extends Model
     protected $table = 'categories';
     protected $fillable = ['id','name','status', ];
     public $timestamps = false;
+
+    public function products(){
+        // return $this->hasMany(Product::class, 'LoaiSP', 'id');
+        return $this->belongsToMany(Product::class, 'category_product', 'category_id', 'product_id');
+
+
+    }
     
 }
+
+

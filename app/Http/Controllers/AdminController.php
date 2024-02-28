@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddProductPostRequest;
+use App\Models\Category;
 use App\Models\Product;
 use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
@@ -14,6 +15,10 @@ class AdminController extends Controller
 {
     public function index(){
         $products = Product::all();
+    //     $category = Category::with('products')->find(1);
+    //     dd($category->products);
+    //     $product = Product::with('category')->find('SP03');
+    //     dd($product->category);
         return view('admin.dashboard', compact('products'));
     }
 
@@ -28,11 +33,9 @@ class AdminController extends Controller
             $name = $request->file('AnhSP')->getClientOriginalName();
             $request->file('AnhSP')->move(public_path($path), $name);
             // dd($request->file('AnhSP'));
-
             $data = $request->all();
             $data['AnhSP'] = $name; 
             Product::create($data);
-    
             return redirect('dashboard');
         } else {
         

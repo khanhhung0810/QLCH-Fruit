@@ -13,4 +13,10 @@ class Product extends Model
     protected $keyType = 'string'; // Khai báo kiểu dữ liệu của primaryKey, nếu không phải mặt định là key
     protected $fillable = ['MaSP','TenSP','LoaiSP', 'AnhSP', 'Gia', 'SoLuong',]; // Khai báo những trường trong DB được phép lưu khi use lưu một khối DB
     public $timestamps = false;
+
+    public function category(){
+        return $this->belongsToMany(Category::class, 'category_product',  'product_id','category_id');
+        // return $this->belongsTo(Category::class, 'LoaiSP', 'id);
+
+    }
 }

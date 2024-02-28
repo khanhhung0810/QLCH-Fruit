@@ -90,7 +90,8 @@
       .sidebar-link.active {
         &:hover {
           &.has-arrow::after {
-            border-color: $white;
+            border-color: $blue;
+            text-decoration: none;
           }
         }
       }
