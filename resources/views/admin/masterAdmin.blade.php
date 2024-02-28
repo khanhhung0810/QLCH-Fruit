@@ -41,7 +41,7 @@
             <li class="sidebar-item ">
               <a class="sidebar-link text-decoration-none" href="{{ url('dashboard') }}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-layout-dashboard"></i>
+                  <i class="fa-solid fa-circle-dot"></i>
                 </span>
                 <span class="hide-menu">Quản lý sản phẩm</span>
               </a>
@@ -49,7 +49,7 @@
             <li class="sidebar-item">
               <a class="sidebar-link text-decoration-none" href="{{ url('category') }}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-layout-dashboard"></i>
+                  <i class="fa-solid fa-circle-dot"></i>
                 </span>
                 <span class="hide-menu">Quản lý danh mục</span>
               </a>
