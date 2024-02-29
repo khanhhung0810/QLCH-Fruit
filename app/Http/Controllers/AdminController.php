@@ -19,12 +19,13 @@ class AdminController extends Controller
     //     dd($category->products);
     //     $product = Product::with('category')->find('SP03');
     //     dd($product->category);
-        return view('admin.dashboard', compact('products'));
+        $categories = Category::pluck('name', 'id'); 
+        return view('admin.dashboard', compact('products', 'categories'));
     }
 
     public function create()  {
-       
-        return view('admin.create');  
+        $categories = Category::all(); 
+        return view('admin.create', compact('categories'));  
     }
 
     public function store(AddProductPostRequest $request)  {
@@ -53,14 +54,16 @@ class AdminController extends Controller
     
     public function edit(String $product)  {
         $products = Product::findOrFail($product);
-        return view('admin.edit_product', compact('products'));  
+        $categories = Category::all(); 
+        return view('admin.edit_product', compact('products', 'categories'));  
     }
     
 
     public function show(string $product)
     {
         $products = Product::findOrFail($product);
-        return view('admin.show', compact('products'));
+        $categories = Category::findOrFail($products->LoaiSP);
+        return view('admin.show', compact('products', 'categories')); 
     }
 
     public function update(Request $request, string $product)

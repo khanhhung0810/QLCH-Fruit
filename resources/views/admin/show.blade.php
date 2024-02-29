@@ -51,18 +51,17 @@
 <h2>Xem chi tiết thông tin sản phẩm</h2>
 
 <div class="container">
-    <form action="{{ route('product.update', $products->MaSP) }}" method="POST">
+    <form action="{{ route('product.show', $products->MaSP) }}" >
         <label for="product_code">Mã sản phẩm:</label>
         <input type="text"  name="MaSP" value={{$products->MaSP}} @readonly(true)>
 
         <label for="product_name">Tên sản phẩm:</label>
         <input type="text" name="TenSP" value={{$products->TenSP}} @readonly(true)>
 
-        {{-- <label for="product_type">Loại sản phẩm:</label>
-        <select id="product_type" name="product_type">
-            <option value="type1">Củ</option>
-            <option value="type2">Quả</option>
-        </select> --}}
+        <label for="product_type">Loại sản phẩm:</label>
+        <input type="text" name="LoaiSP" value="{{ $categories->name }}" readonly>
+
+
 
         <label for="product_image">Ảnh sản phẩm:</label>
         <img src="{{ url('images/'.$products->AnhSP) }}" alt="" width="200">

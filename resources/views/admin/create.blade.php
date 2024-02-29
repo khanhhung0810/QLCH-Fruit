@@ -22,12 +22,10 @@
       <tr>
         <th>Loại sản phẩm</th>
         <td>
-          {{-- <select name="LoaiSP">
-            @foreach ($products as $item)
-                <option value="{{$item->LoaiSP}}">{{$item->LoaiSP}}</option>
-            @endforeach --}}
-         
-           
+          <select name="LoaiSP">
+            @foreach($categories as $category)
+              <option value="{{ $category->id }}">{{ $category->name }}</option>
+            @endforeach
           </select>
         </td>
       </tr>

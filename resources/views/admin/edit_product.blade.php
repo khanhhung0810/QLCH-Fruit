@@ -60,11 +60,12 @@
         <label for="product_name">Tên sản phẩm:</label>
         <input type="text"  name="TenSP" value={{$products->TenSP}}>
 
-        {{-- <label for="product_type">Loại sản phẩm:</label>
+        <label for="product_type">Loại sản phẩm:</label>
         <select id="product_type" name="LoaiSP">
-            <option value="type1">Củ</option>
-            <option value="type2">Quả</option>
-        </select> --}}
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}" {{ $products->LoaiSP == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+            @endforeach
+        </select>
 
         <label for="product_image">Ảnh sản phẩm:</label>
         <input type="file"  type="text" name="AnhSP" value={{$products->AnhSP}}>
