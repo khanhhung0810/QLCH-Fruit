@@ -20,8 +20,7 @@ class AdminController extends Controller
         //     dd($category->products);
         //     $product = Product::with('category')->find('SP03');
         //     dd($product->category);
-        $categories = Category::pluck('name', 'id');
-        return view('admin.dashboard', compact('products', 'categories'));
+        return view('admin.dashboard', compact('products'));
     }
 
     public function create()
@@ -79,16 +78,19 @@ class AdminController extends Controller
     public function update(Request $request, string $product)
     {
         $product = Product::findOrFail($product);
-        $product->update($request->all());
-
+        $product->update($request->except('AnhSP', 'LoaiSP'));
         if ($request->hasFile('AnhSP')) {
             $path = 'images';
             $name = $request->file('AnhSP')->getClientOriginalName();
             $request->file('AnhSP')->move(public_path($path), $name);
             $product->AnhSP = $name;
-            $product->save();
         }
 
+        if ($request->has('LoaiSP')) {
+            $product->category()->sync($request->input('LoaiSP'));
+        }
+        $product->save();
         return redirect('dashboard');
+        
     }
 }

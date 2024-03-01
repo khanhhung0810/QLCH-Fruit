@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+
 use App\Models\Product;
 use App\Models\Products;
 use Illuminate\Http\Request;
@@ -36,8 +38,6 @@ class TemplateController extends Controller
 
     public function productDetails($maSP){
         $product = Product::query()->where("MaSP","=", $maSP)->first();
-
-        
         return view('frontend.product_details', compact('product'));
     }
 }

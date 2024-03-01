@@ -69,7 +69,13 @@
             <tr>
             <td>{{$item->MaSP}}</td>
             <td>{{$item->TenSP}}</td>
-            <td>{{ $categories[$item->LoaiSP] ?? '' }}</td> 
+            <td>
+                @foreach ($item->category as $category) {{ $category->name }}
+                    @if (!$loop->last)
+                        , <!-- Đưa ra dấu phẩy nếu không phải là danh mục cuối cùng -->
+                    @endif
+                @endforeach
+            </td> 
         {{-- 
           (1)   Truy cập vào mảng $categories dựa trên giá trị của $item->LoaiSP.
                 $item->LoaiSP có thể là một khóa (key) trong mảng $categories, và giá trị tương ứng với khóa này sẽ được lấy ra.
@@ -79,7 +85,7 @@
         --}}
 
             <td><img src="{{ url('images/'.$item->AnhSP) }}" alt="" width="120"></td>
-            <td>{{$item->Gia}}</td>
+            <td>{{ number_format($item->Gia,0)}}₫</td>
             <td>{{$item->SoLuong}}</td>
             <td>       
                 <a class="button " href="{{ route('product.edit',['product'=>$item->MaSP]) }} "><i class="fa fa-solid fa-pen-to-square"></i></a>
