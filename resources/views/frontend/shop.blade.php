@@ -244,7 +244,7 @@
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-7">
-                    <div class="product__discount">
+                    {{-- <div class="product__discount">
                         <div class="section-title product__discount__title">
                             <h2>Sale Off</h2>
                         </div>
@@ -385,6 +385,9 @@
                                 </div>
                             </div>
                         </div>
+                    </div> --}}
+                    <div class="section-title product__discount__title">
+                        <h2>Products</h2>
                     </div>
                     <div class="row">
                         @foreach ($products as $product)
@@ -401,7 +404,8 @@
                                     </div>
                                     <div class="product__item__text">
                                         <h6><a href="{{ route('productDetails', ['maSP' => $product->MaSP]) }}">{{ $product->TenSP }}</a></h6>
-                                        <h5>{{ $product->Gia }}</h5>
+                                        
+                                        <h5>₫{{ number_format($product->Gia,0) }}</h5>
                                     </div>
                                 </div>
                             </div>

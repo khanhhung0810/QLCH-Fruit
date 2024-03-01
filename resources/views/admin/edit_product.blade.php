@@ -61,9 +61,9 @@
         <input type="text"  name="TenSP" value={{$products->TenSP}}>
 
         <label for="product_type">Loại sản phẩm:</label>
-        <select id="product_type" name="LoaiSP">
+        <select id="product_type" name="LoaiSP[]" multiple="true">
             @foreach($categories as $category)
-                <option value="{{ $category->id }}" {{ $products->LoaiSP == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                <option value="{{ $category->id }}" @selected($products->LoaiSP == $category->id ) >{{ $category->name }}</option>
             @endforeach
         </select>
 

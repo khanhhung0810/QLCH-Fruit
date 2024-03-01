@@ -22,7 +22,7 @@
       <tr>
         <th>Loại sản phẩm</th>
         <td>
-          <select name="LoaiSP">
+          <select name="LoaiSP[]" multiple="true" >
             @foreach($categories as $category)
               <option value="{{ $category->id }}">{{ $category->name }}</option>
             @endforeach
@@ -120,11 +120,11 @@
             processData: false,
             contentType: false,
             success: function(response) {
-              alert('Thêm sản phẩm thành công !!');
+              alert(response.message);
                 console.log(response);
             },
             error: function(xhr, status, error) {
-              alert('Thêm sản phẩm thất bại !!');
+              alert(response.message);
                 console.error(xhr.responseText);
             }
         });

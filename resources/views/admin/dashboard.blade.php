@@ -69,7 +69,15 @@
             <tr>
             <td>{{$item->MaSP}}</td>
             <td>{{$item->TenSP}}</td>
-            <td>{{ $categories[$item->LoaiSP] ?? '' }}</td>
+            <td>{{ $categories[$item->LoaiSP] ?? '' }}</td> 
+        {{-- 
+          (1)   Truy cập vào mảng $categories dựa trên giá trị của $item->LoaiSP.
+                $item->LoaiSP có thể là một khóa (key) trong mảng $categories, và giá trị tương ứng với khóa này sẽ được lấy ra.
+        
+          (2)   " ?? '' ": Đây là toán tử null coalescing trong PHP. Kiểm tra xem giá trị bên trái có tồn tại không.
+                Nếu tồn tại, thì giá trị đó được trả về; nếu không, thì giá trị bên phải (trong trường hợp này là chuỗi rỗng '') sẽ được trả về. 
+        --}}
+
             <td><img src="{{ url('images/'.$item->AnhSP) }}" alt="" width="120"></td>
             <td>{{$item->Gia}}</td>
             <td>{{$item->SoLuong}}</td>

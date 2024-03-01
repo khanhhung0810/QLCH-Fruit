@@ -56,8 +56,7 @@
         <input type="text"  name="MaSP" value={{$products->MaSP}} @readonly(true)>
 
         <label for="product_name">Tên sản phẩm:</label>
-        <input type="text" name="TenSP" value={{$products->TenSP}} @readonly(true)>
-
+        <input type="text" name="TenSP" value="{{$products->TenSP}}" @readonly(true)>
         <label for="product_type">Loại sản phẩm:</label>
         <input type="text" name="LoaiSP" value="{{ $categories->name }}" readonly>
 

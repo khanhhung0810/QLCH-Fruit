@@ -29,7 +29,7 @@ class TemplateController extends Controller
         // ->where("MaSP", "=", "SP01")
         ->get();
         // dd($products);
-
+        
         return view('frontend.shop', compact('products'));
 
     }
