@@ -34,17 +34,18 @@ class AdminController extends Controller
         try {
 
                 $path = 'images';
-                $name = $request->file('AnhSP')->getClientOriginalName();
+                $name = $request->file('AnhSP')->getClientOriginalName(); //request->files(); lấy hết những file đã được upload.
                 $request->file('AnhSP')->move(public_path($path), $name);
                 // dd($request->file('AnhSP'));
                 $data = $request->all();
+                // hàm chuyển từ array sang chuỗi Json json_encode()
                 $data['AnhSP'] = $name;
-              
-
+                
+                
                 $product = Product::create($data);
-          
+                
                 $product->category()->sync($data['LoaiSP']);
-               return response()->json(['message' =>' Thêm sp']);
+                return response()->json(['message' =>' Thêm sp']);
            
         } catch (\Throwable $th) {
             return response()->json(['message' => $th->getMessage()]);
