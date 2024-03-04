@@ -2,6 +2,7 @@
 @section('main')
 
 <section>
+   
  <style>
     button {
         border: none;
@@ -58,8 +59,9 @@
     <table>
         <tr>
             <th>Mã sản phẩm</th>
-            <th>Tên Sản phẩm</th>
-            <th>Loại Sản phẩm</th>
+            <th>Tên sản phẩm</th>
+            <th>Loại sản phẩm</th>
+            <th>Mô tả sản phẩm</th>
             <th>Ảnh Sản phẩm</th>
             <th>Giá</th>
             <th>Số lượng</th>
@@ -83,8 +85,12 @@
           (2)   " ?? '' ": Đây là toán tử null coalescing trong PHP. Kiểm tra xem giá trị bên trái có tồn tại không.
                 Nếu tồn tại, thì giá trị đó được trả về; nếu không, thì giá trị bên phải (trong trường hợp này là chuỗi rỗng '') sẽ được trả về. 
         --}}
-
-            <td><img src="{{ url('images/'.$item->AnhSP) }}" alt="" width="120"></td>
+            
+            <td>{{$item->description}}</td>
+            @php
+                $productImages = json_decode($item->AnhSP);
+            @endphp
+            <td><img src="{{ url('images/'.Arr::first($productImages)) }}" alt="" width="120"></td>
             <td>{{ number_format($item->Gia,0)}}₫</td>
             <td>{{$item->SoLuong}}</td>
             <td>       

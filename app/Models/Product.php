@@ -11,7 +11,7 @@ class Product extends Model
     protected $table = 'product'; //Khai báo tên bảng
     protected $primaryKey = 'MaSP'; // Khai báo tên Primary key nếu ko phải là id
     protected $keyType = 'string'; // Khai báo kiểu dữ liệu của primaryKey, nếu không phải mặt định là key
-    protected $fillable = ['MaSP', 'TenSP', 'AnhSP', 'Gia', 'SoLuong',]; // Khai báo những trường trong DB được phép lưu khi use lưu một khối DB
+    protected $fillable = ['MaSP', 'TenSP', 'AnhSP', 'Gia', 'SoLuong', 'description']; // Khai báo những trường trong DB được phép lưu khi use lưu một khối DB
     public $timestamps = false;
     public $incrementing = false;
     public $casts  = ['MaSP' => 'string'];

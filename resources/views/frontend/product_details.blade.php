@@ -20,6 +20,9 @@
 <!-- Breadcrumb Section End -->
 
 <!-- Product Details Section Begin -->
+@php
+    $productImages = json_decode($product->AnhSP);
+@endphp
 <section class="product-details spad">
     <div class="container">
         <div class="row">
@@ -27,17 +30,21 @@
                 <div class="product__details__pic">
                     <div class="product__details__pic__item">
                         <img class="product__details__pic__item--large"
-                            src="{{ url('images/'.$product->AnhSP) }}" alt="">
+                            src="{{ url('images/'.Arr::first($productImages)) }}" alt="">
                     </div>
                     <div class="product__details__pic__slider owl-carousel">
-                        <img 
-                            src="{{ url('images/'.$product->AnhSP) }}" alt="">
-                        <img data-imgbigurl="{{ asset('site/img/product/details/product-details-3.jpg') }}"
+                        {{-- <img src="{{ url('images/'.$product->AnhSP) }}" alt=""> --}}
+                        {{-- @dd(json_decode($product->AnhSP)) --}}
+                        
+                        @foreach ($productImages as $productImage)
+                            <img data-imgbigurl="{{ url('images/'.$productImage)}}" src="{{ url('images/'.$productImage)}}" alt="">
+                        @endforeach
+                        {{-- <img data-imgbigurl="{{ asset('site/img/product/details/product-details-3.jpg') }}"
                             src="{{ asset('site/img/product/details/thumb-2.jpg') }}" alt="">
                         <img data-imgbigurl="{{ asset('site/img/product/details/product-details-5.jpg') }}"
                             src="{{ asset('site/img/product/details/thumb-3.jpg') }}" alt="">
                         <img data-imgbigurl="{{ asset('site/img/product/details/product-details-4.jpg') }}"
-                            src="{{ asset('site/img/product/details/thumb-4.jpg') }}" alt="">
+                            src="{{ asset('site/img/product/details/thumb-4.jpg') }}" alt=""> --}}
                     </div>
                 </div>
             </div>
@@ -55,9 +62,7 @@
                         <span>(18 reviews)</span>
                     </div>
                     <div class="product__details__price">{{ number_format($product->Gia,0)}}₫</div>
-                    <p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam sit amet quam
-                        vehicula elementum sed sit amet dui. Sed porttitor lectus nibh. Vestibulum ac diam sit amet
-                        quam vehicula elementum sed sit amet dui. Proin eget tortor risus.</p>
+                    <p>{{$product->description}}</p>
                     <div class="product__details__quantity">
                         <div class="quantity">
                             <div class="pro-qty">

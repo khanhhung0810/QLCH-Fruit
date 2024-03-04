@@ -30,8 +30,12 @@
         </td>
       </tr>
       <tr>
+        <th>Mô tả sản phẩm</th>
+        <td><textarea rows="5" cols="50" name="description" ></textarea></td>
+      </tr>
+      <tr>
         <th>Ảnh sản phẩm</th>
-        <td><input type="file" name="AnhSP">
+        <td><input type="file" name="AnhSP[]" multiple>
           
         </td>
       </tr>

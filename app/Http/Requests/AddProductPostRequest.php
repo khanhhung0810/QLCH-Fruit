@@ -26,7 +26,7 @@ class AddProductPostRequest extends FormRequest
             'TenSP' => 'required|max:255',
             // 'Gia' => 'required|numeric|min:0',
             // 'SoLuong' => 'required|numeric|min:0',
-            'AnhSP' => 'required|image', 
+            'AnhSP.*' => 'required|image|mimes:png,jpg,jpeg,webp', 
             
         ];
     }
@@ -37,7 +37,7 @@ class AddProductPostRequest extends FormRequest
             'MaSP.required' => 'Yêu cầu điền Mã Sản Phẩm',
             'TenSP.required' => 'Yêu cầu điền Tên Sản Phẩm',
             'MaSP.unique' => 'Không được nhập trùng',
-            // 'AnhSP.required' => 'Yêu cầu thêm ảnh sản phẩm',
+            'AnhSP.required' => 'Yêu cầu thêm ảnh sản phẩm',
         ];
     }
 }

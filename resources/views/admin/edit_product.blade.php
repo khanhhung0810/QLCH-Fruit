@@ -51,31 +51,52 @@
 <h2>Chỉnh sửa thông tin sản phẩm</h2>
 
 <div class="container">
-    <form action="{{ route('product.update', $products->MaSP) }}" method="POST"  enctype='multipart/form-data'>
+    <form action="{{ route('product.update', $product->MaSP) }}" method="POST"  enctype='multipart/form-data'>
         @csrf
+        @php
+            $productImages = json_decode($product->AnhSP,false);
+            if (!$productImages) {
+                $productImages = [$product->AnhSP];
+            }
+             
+        @endphp
         @method('PUT')
         <label for="product_code">Mã sản phẩm:</label>
-        <input type="text"  name="MaSP" value={{$products->MaSP}}>
+        <input type="text"  name="MaSP" value= {{$product->MaSP}}>
 
         <label for="product_name">Tên sản phẩm:</label>
-        <input type="text"  name="TenSP" value={{$products->TenSP}}>
+        <input type="text"  name="TenSP" value= {{$product->TenSP}}>
 
         <label for="product_type">Loại sản phẩm:</label>
         <select id="product_type" name="LoaiSP[]" multiple="true">
             @foreach($categories as $category)
-                <option value="{{ $category->id }}" @selected($products->LoaiSP == $category->id ) >{{ $category->name }}</option>
+                @php
+                    $isSelect = false;
+                    $categoryId = $category->id;
+                    if (in_array($categoryId, $productCategoryIds)) 
+                       $isSelect = true;
+                    // Kiểm tra xem phần tử có trong mảng khác không
+                @endphp
+                    <option  value="{{ $category->id }}" @selected($isSelect) >{{ $category->name }}</option>  
             @endforeach
         </select>
-
+        <label for="product_description">Mô tả sản phẩm:</label>
+        <textarea rows="5" cols="50" name="description" >{{$product->description}}</textarea>
         <label for="product_image">Ảnh sản phẩm:</label>
-        <input type="file"  type="text" name="AnhSP" value={{$products->AnhSP}}>
-        <img src="{{ url('images/'.$products->AnhSP) }}" alt="" width="120">
+        @if(is_array($productImages))
+        @foreach ($productImages as $productImage)
+        <img src="{{ url('images/'.$productImage)}}" alt="" width="120">
+        @endforeach
+        @else
+        <img src="{{ url('images/'.$productImages)}}" alt="" width="120">
 
+        @endif
+        <input type="file" multiple type="text" name="AnhSP" value={{$product->AnhSP}}>
         <label for="product_price">Giá:</label>
-        <input type="number"  name="Gia" value={{$products->Gia}}>
+        <input type="number"  name="Gia" value={{$product->Gia}}>
 
         <label for="product_quantity">Số lượng:</label>
-        <input type="number"  name="SoLuong" value={{$products->SoLuong}}>
+        <input type="number"  name="SoLuong" value={{$product->SoLuong}}>
 
         <br>
         <button type="submit" class="btn">Lưu</button>

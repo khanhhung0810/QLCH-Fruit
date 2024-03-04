@@ -51,25 +51,44 @@
 <h2>Xem chi tiết thông tin sản phẩm</h2>
 
 <div class="container">
-    <form action="{{ route('product.show', $products->MaSP) }}" >
+    <form action="{{ route('product.show', $product->MaSP) }} "method="POST">
+        @csrf
+        @php
+             $productImages = json_decode($product->AnhSP);
+        @endphp
         <label for="product_code">Mã sản phẩm:</label>
-        <input type="text"  name="MaSP" value={{$products->MaSP}} @readonly(true)>
+        <input type="text"  name="MaSP" value={{$product->MaSP}} @readonly(true)>
 
         <label for="product_name">Tên sản phẩm:</label>
-        <input type="text" name="TenSP" value="{{$products->TenSP}}" @readonly(true)>
+        <input type="text" name="TenSP" value="{{$product->TenSP}}" @readonly(true)>
+
         <label for="product_type">Loại sản phẩm:</label>
-        <input type="text" name="LoaiSP" value="{{ $categories->name }}" readonly>
+        <select id="product_type" name="LoaiSP[]" multiple="true">
+            @foreach($categories as $category)
+                @php
+                    $isSelect = false;
+                    $categoryId = $category->id;
+                    if (in_array($categoryId, $productCategoryIds)) 
+                       $isSelect = true;
+                    // Kiểm tra xem phần tử có trong mảng khác không
+                @endphp
+                    <option  value="{{ $category->id }}" @selected($isSelect) >{{ $category->name }}</option>  
+            @endforeach
+        </select>
+        {{-- <input type="text" name="LoaiSP" value="{{ $category->name }}" readonly> --}}
 
-
+        <label for="product_description">Mô tả sản phẩm:</label>
+        <textarea rows="5" cols="50" name="description" readonly>{{$product->description}}</textarea>
 
         <label for="product_image">Ảnh sản phẩm:</label>
-        <img src="{{ url('images/'.$products->AnhSP) }}" alt="" width="200">
-
+        @foreach ($productImages as $productImage)
+        <img src="{{ url('images/'.$productImage)}}" alt="" width="120">
+        @endforeach
         <label for="product_price">Giá:</label>
-        <input type="number"  name="Gia" value={{$products->Gia}} @readonly(true)>
+        <input type="number"  name="Gia" value={{$product->Gia}} @readonly(true)>
 
         <label for="product_quantity">Số lượng:</label>
-        <input type="number"  name="SoLuong" value={{$products->SoLuong}} @readonly(true)>
+        <input type="number"  name="SoLuong" value={{$product->SoLuong}} @readonly(true)>
 
         <br>
         <button type="button" class="btn" onclick="window.history.back();">Quay về</button>
