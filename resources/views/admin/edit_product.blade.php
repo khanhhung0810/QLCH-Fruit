@@ -91,7 +91,7 @@
         <img src="{{ url('images/'.$productImages)}}" alt="" width="120">
 
         @endif
-        <input type="file" multiple type="text" name="AnhSP" value={{$product->AnhSP}}>
+        <input type="file" multiple type="text" name="AnhSP[]" value={{$product->AnhSP}}>
         <label for="product_price">Giá:</label>
         <input type="number"  name="Gia" value={{$product->Gia}}>
 

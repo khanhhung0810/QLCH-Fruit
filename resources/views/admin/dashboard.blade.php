@@ -68,6 +68,7 @@
             <th>Chức năng</th>
         </tr>
         @forelse ($products as $item)
+        
             <tr>
             <td>{{$item->MaSP}}</td>
             <td>{{$item->TenSP}}</td>
@@ -87,10 +88,16 @@
         --}}
             
             <td>{{$item->description}}</td>
-            @php
-                $productImages = json_decode($item->AnhSP);
-            @endphp
-            <td><img src="{{ url('images/'.Arr::first($productImages)) }}" alt="" width="120"></td>
+           
+
+            <td>
+                @php
+                    $productImages = json_decode($item->AnhSP);
+                @endphp
+                <img src="{{ url('images/'.Arr::first($productImages)) }}" alt="" width="120">
+            </td>
+                       {{-- @dd(json_decode($item->AnhSP)) --}}
+
             <td>{{ number_format($item->Gia,0)}}₫</td>
             <td>{{$item->SoLuong}}</td>
             <td>       

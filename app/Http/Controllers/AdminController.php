@@ -101,23 +101,41 @@ class AdminController extends Controller
     }
 
     public function update(Request $request, string $product)
-    {
-        $product = Product::findOrFail($product);
-        $product->update($request->except('AnhSP', 'LoaiSP'));
-        
+{
+    $product = Product::findOrFail($product);
+    $data = $request->except('LoaiSP');
+
+    try {
         if ($request->hasFile('AnhSP')) {
+            $images = [];
             $path = 'images';
-            $name = $request->file('AnhSP')->getClientOriginalName();
-            $request->file('AnhSP')->move(public_path($path), $name);
-            $product->AnhSP = $name;
+            // dd($request->file('AnhSP'));
+            foreach ($request->file('AnhSP') as $file) {
+                $name = $file->getClientOriginalName();
+                $file->move(public_path($path), $name);
+                $images[] = $name;
+            }
+
+            if (count($images) > 1) {
+                $data['AnhSP'] = json_encode($images); // Nhiều hình ảnh
+            } else {
+                $data['AnhSP'] = json_encode([$images[0]]); // Một hình ảnh
+            }
+
+            // Lấy ảnh đầu tiên để hiển thị
         }
-        
+
+        $product->update($data);
 
         if ($request->has('LoaiSP')) {
             $product->category()->sync($request->input('LoaiSP'));
         }
-        $product->save();
-        return redirect('dashboard');
-        
+
+        return redirect('dashboard')->with('success', 'Cập nhật sản phẩm thành công');
+    } catch (\Throwable $th) {
+        return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
     }
+}
+
+
 }

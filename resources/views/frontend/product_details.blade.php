@@ -33,7 +33,6 @@
                             src="{{ url('images/'.Arr::first($productImages)) }}" alt="">
                     </div>
                     <div class="product__details__pic__slider owl-carousel">
-                        {{-- <img src="{{ url('images/'.$product->AnhSP) }}" alt=""> --}}
                         {{-- @dd(json_decode($product->AnhSP)) --}}
                         
                         @foreach ($productImages as $productImage)
