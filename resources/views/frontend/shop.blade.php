@@ -71,7 +71,7 @@
         </div>
     </section>
     <!-- Breadcrumb Section End -->
-   
+
     <!-- Product Section Begin -->
     <section class="product spad">
         <div class="container">
@@ -391,13 +391,13 @@
                     </div>
                     <div class="row">
                         @foreach ($products as $product)
-                        @php
-                            $productImages = json_decode($product->AnhSP);
-                        @endphp
+                            @php
+                                $productImages = json_decode($product->AnhSP);
+                            @endphp
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
                                     <div class="product__item__pic set-bg"
-                                        data-setbg="{{ url('images/'.Arr::first($productImages)) }}">
+                                        data-setbg="{{ url('images/' . Arr::first($productImages)) }}">
                                         <ul class="product__item__pic__hover">
                                             <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                             <li><a href="#"><i class="fa fa-retweet"></i></a></li>
