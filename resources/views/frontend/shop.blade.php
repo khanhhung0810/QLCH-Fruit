@@ -71,7 +71,7 @@
         </div>
     </section>
     <!-- Breadcrumb Section End -->
-
+   
     <!-- Product Section Begin -->
     <section class="product spad">
         <div class="container">
@@ -391,10 +391,13 @@
                     </div>
                     <div class="row">
                         @foreach ($products as $product)
+                        @php
+                            $productImages = json_decode($product->AnhSP);
+                        @endphp
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
                                     <div class="product__item__pic set-bg"
-                                        data-setbg="{{ url('images/'.$product->AnhSP) }}">
+                                        data-setbg="{{ url('images/'.Arr::first($productImages)) }}">
                                         <ul class="product__item__pic__hover">
                                             <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                             <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -403,9 +406,11 @@
                                         </ul>
                                     </div>
                                     <div class="product__item__text">
-                                        <h6><a href="{{ route('productDetails', ['maSP' => $product->MaSP]) }}">{{ $product->TenSP }}</a></h6>
-                                        
-                                        <h5>₫{{ number_format($product->Gia,0) }}</h5>
+                                        <h6><a
+                                                href="{{ route('productDetails', ['maSP' => $product->MaSP]) }}">{{ $product->TenSP }}</a>
+                                        </h6>
+
+                                        <h5>₫{{ number_format($product->Gia, 0) }}</h5>
                                     </div>
                                 </div>
                             </div>

@@ -27,10 +27,9 @@ class TemplateController extends Controller
     }
 
     public function shopProducts(){
-        $products = Product::query()
+        $products = Product::query()->get();
         // ->where("MaSP", "=", "SP01")
-        ->get();
-        // dd($products);
+        // dd($products->AnhSP);
         
         return view('frontend.shop', compact('products'));
 
