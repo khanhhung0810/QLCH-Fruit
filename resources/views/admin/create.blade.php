@@ -39,8 +39,11 @@
             </tr>
             <tr>
                 <th>Ảnh sản phẩm</th>
-                <td><input type="file" name="AnhSP[]" multiple>
-
+                <td>
+                    {{-- <input type="file" name="AnhSP[]" multiple> --}}
+                    <div id="my-element">
+                        <div class="dz-message needsclick">Drop files here or click to upload.<BR></div>
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -52,13 +55,29 @@
                 <td><input type="number" name="SoLuong" value="{{ old('SoLuong') }}"></td>
             </tr>
         </table>
-        <br>        <div id="my-element"></div>
+        <br>
+        
 
         <input type="submit" value="Thêm sản phẩm">
     </form>
     <a href="{{ route('product.index') }}" class="button ">Quay lại</a>
 
     <style>
+        #my-element {
+            background: rgb(243, 244, 245);
+            border-radius: 5px;
+            border: 3px dashed #4CAF50;
+            border-image: none;
+            max-width: 500px;   
+            margin-left: auto;
+            margin-right: auto;
+            height: 100px;
+            text-align: center;
+        }
+        .dz-message{
+            margin-top: 9%;
+        }
+
         .error {
             color: red;
             font-size: 12px;
@@ -67,6 +86,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            
         }
 
         h2 {
@@ -141,14 +161,15 @@
             // console.log(formData.get('MaSP'));
         })
 
-        let myDropzone = Dropzone("#my-element", {
-  addedfile: file => {
-    // ONLY DO THIS IF YOU KNOW WHAT YOU'RE DOING!
-  }
-});
-  
-  // const dropzone = new Dropzone("div.my-dropzone", { url: "/file/post" });
+        //         let myDropzone = Dropzone("#my-element", {
+        //   addedfile: file => {
+        //     // ONLY DO THIS IF YOU KNOW WHAT YOU'RE DOING!
+        //   }
+        // });
 
+        const dropzone = new Dropzone("div#my-element", {
+            url: "/file/post"
+        });
         // Dropzone.options.photo = {
 
         //     // The camelized version of the ID of the form element

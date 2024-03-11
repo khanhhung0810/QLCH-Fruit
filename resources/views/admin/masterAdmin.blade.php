@@ -197,9 +197,9 @@
     <script src="{{ asset('ad/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('ad/js/sidebarmenu.js') }}"></script>
     <script src="{{ asset('ad/js/app.min.js') }}"></script>
-    <script src="{{ asset('ad/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
-    <script src="{{ asset('ad/libs/simplebar/dist/simplebar.js') }}"></script>
-    <script src="{{ asset('ad/js/dashboard.js') }}"></script>
+    {{-- <script src="{{ asset('ad/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('ad/libs/simplebar/dist/simplebar.js') }}"></script> --}}
+    {{-- <script src="{{ asset('ad/js/dashboard.js') }}"></script> --}}
 
 
     @yield('customjs')

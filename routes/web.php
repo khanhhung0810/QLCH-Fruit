@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LoginController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,7 @@ Route::get('/shop/product_details/{maSP}', [TemplateController::class, 'productD
 // Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
 Route::resource('/dashboard', AdminController::class)->parameter('dashboard','product')->names('product');
 Route::resource('/category', CategoryController::class)->parameter('category','categories')->names('categories');
+Route::resource('/login-page', LoginController::class)->parameter('login','loginPage')->names('login');
 // Route::get('/test', [AdminController::class, 'create'])->name('test');
 
 // Route::get('/dashboard/create_product', [AdminController::class, 'create'])->name('createProduct');
