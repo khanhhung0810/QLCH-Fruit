@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+
 
 class LoginController extends Controller
 {
@@ -20,15 +23,26 @@ class LoginController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(LoginRequest $request)
     {
-        //
+        $user = User::where('email', $request->email)->first();
+        // dd($request->all);
+        // dd($user);
+
+        if (empty($user)) {
+            return back()->withInput($request->only('email'))->withErrors(['email' => 'No user found with this email address.']);
+        }
+        if (password_verify($request->password, $user->password)) {
+            session(['user' => $user]);
+            return redirect()->intended(route('product.index'));
+        }
+
+        return back()->withInput($request->only('email'))->withErrors(['password' => 'Incorrect password.']);
     }
 
     /**
