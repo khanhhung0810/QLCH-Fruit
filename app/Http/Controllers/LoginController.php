@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -23,28 +25,33 @@ class LoginController extends Controller
      */
     public function create()
     {
+        return view('login.register');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(LoginRequest $request)
+    public function store(RegisterRequest $request)
     {
-        $user = User::where('email', $request->email)->first();
-        // dd($request->all);
-        // dd($user);
-
-        if (empty($user)) {
-            return back()->withInput($request->only('email'))->withErrors(['email' => 'No user found with this email address.']);
-        }
-        if (password_verify($request->password, $user->password)) {
-            session(['user' => $user]);
-            return redirect()->intended(route('product.index'));
-        }
-
-        return back()->withInput($request->only('email'))->withErrors(['password' => 'Incorrect password.']);
+        // $data = $request->all();
+        $data = $request->validated();
+        $data['password'] = Hash::make($request->password);
+        User::create($data);
+        return redirect()->route('loginPage.index')->with('success', 'Đăng ký thành công');
     }
 
+
+
+    public function login(LoginRequest $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            return redirect()->route('product.index')->json(['message' =>' Đăng nhập thành công']);
+        } else {
+            return back()->with('login_error', 'Email hoặc mật khẩu không đúng');
+        }
+    }
     /**
      * Display the specified resource.
      */

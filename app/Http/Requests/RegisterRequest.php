@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,18 +22,19 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|exists:users,email',
-            'password' => 'required',
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8|confirmed',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'email.required' => 'Yêu cầu điền email.',
-            'email.email' => 'Email không hợp lệ.',
-            'email.exists' => 'Email này chưa được đăng ký.',
-            'password.required' => 'Yêu cầu điền mật khẩu.',
+            'name.required' => 'Yêu cầu điền name',
+            'email.unique' => 'Email này đã được sử dụng.',
+            'password.required' => 'Yêu cầu điền Password',
+            'password.confirmed' => 'Mật khẩu nhập lại không khớp.',
         ];
     }
 }

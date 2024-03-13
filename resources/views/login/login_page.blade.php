@@ -1,17 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Page</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
-
-<body class="vh-100" style="background-color: #4CAF50;">
-    <form method="POST" action="{{ route('loginPage.store') }}">
-        @csrf
+@extends('login.master')
+@section('main')
+<form method="POST" action="{{ route('loginPage.store') }}">
+    @csrf
+    
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -33,16 +24,20 @@
                             </div>
                             <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
                             <hr class="my-4">
-                            <button class="btn btn-lg btn-block btn-primary" style="background-color: #dd4b39;"
-                                type="submit"><i class="fab fa-google me-2"></i> Sign in with google</button>
+                            <a href="{{ route('loginPage.create')}}" class="btn btn-lg btn-block btn-primary" style="background-color: #4540d9;"
+                                type="submit"><i class="fa-solid fa-user-plus"></i> Sign up with form</a>
+                            {{-- <button class="btn btn-lg btn-block btn-primary" style="background-color: #dd4b39;"
+                                type="submit"><i class="fa-brands fa-google-plus-g"></i> Sign in with google</button>
                             <button class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #3b5998;"
-                                type="submit"><i class="fab fa-facebook-f me-2"></i>Sign in with facebook</button>
+                                type="submit"><i class="fa-brands fa-square-facebook"></i> Sign in with facebook</button> --}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </form>
+@endsection
+@section('customjs')
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var usernameInput = document.getElementById("email");
@@ -63,6 +58,4 @@
             });
         });
     </script>
-</body>
-
-</html>
+@endsection
