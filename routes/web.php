@@ -32,7 +32,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/category', CategoryController::class)->parameter('category','categories')->names('categories');
 });
 
-Route::resource('/login-page', LoginController::class)->parameter('login','loginPage')->names('loginPage');
+// Route::resource('/login-page', LoginController::class)->parameter('login','loginPage')->names('loginPage');
+Route::get('/login-page', [LoginController::class, 'index'])->name('loginPage');
+
+Route::get('/register', [LoginController::class, 'create'])->name('register');
+Route::post('/register', [LoginController::class, 'store'])->name('register.store');
+
+Route::post('/login-page', [LoginController::class, 'login'])->name('login');
 
 // Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
 // Route::get('/test', [AdminController::class, 'create'])->name('test');

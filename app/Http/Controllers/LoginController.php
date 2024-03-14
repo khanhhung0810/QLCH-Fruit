@@ -37,7 +37,7 @@ class LoginController extends Controller
         $data = $request->validated();
         $data['password'] = Hash::make($request->password);
         User::create($data);
-        return redirect()->route('loginPage.index')->with('success', 'Đăng ký thành công');
+        return redirect()->route('loginPage')->with('success', 'Đăng ký thành công');
     }
 
 
@@ -47,7 +47,8 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect()->route('product.index')->json(['message' =>' Đăng nhập thành công']);
+            session(['name' => Auth::user()->name]);
+            return redirect()->route('product.index')->with('message', 'Đăng nhập thành công');
         } else {
             return back()->with('login_error', 'Email hoặc mật khẩu không đúng');
         }

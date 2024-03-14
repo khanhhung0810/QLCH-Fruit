@@ -11,7 +11,7 @@
 
                                     <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
-                                    <form id="form-signup" class="mx-1 mx-md-4" action="{{ route('loginPage.store') }}"
+                                    <form id="form-signup" class="mx-1 mx-md-4" action="{{ route('register.store') }}"
                                         method="POST">
                                         @csrf
 
@@ -76,27 +76,27 @@
 @section('customjs')
     <script>
         //1. Listen form submit event
-        $('#form-signup').on('submit', function(event) {
-            event.preventDefault() //2. Chặn event submit
-            //3. Lấy data đã nhập từ form
-            var formData = new FormData(this);
-            $.ajax({
-                url: $('#form-signup').attr('action'),
-                method: $('#form-signup').attr('method'),
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    alert(response.message);
-                    console.log(response);
-                },
-                error: function(xhr, status, error) {
-                    alert(response.message);
-                    console.error(xhr.responseText);
-                }
-            });
-            // console.log(formData.get('MaSP'));
-        })
+        // $('#form-signup').on('submit', function(event) {
+        //     event.preventDefault() //2. Chặn event submit
+        //     //3. Lấy data đã nhập từ form
+        //     var formData = new FormData(this);
+        //     $.ajax({
+        //         url: $('#form-signup').attr('action'),
+        //         method: $('#form-signup').attr('method'),
+        //         data: formData,
+        //         processData: false,
+        //         contentType: false,
+        //         success: function(response) {
+        //             alert(response.message);
+        //             console.log(response);
+        //         },
+        //         error: function(xhr, status, error) {
+        //             alert(response.message);
+        //             console.error(xhr.responseText);
+        //         }
+        //     });
+        //     // console.log(formData.get('MaSP'));
+        // })
 
         document.addEventListener("DOMContentLoaded", function() {
             var usernameInput = document.getElementById("email");

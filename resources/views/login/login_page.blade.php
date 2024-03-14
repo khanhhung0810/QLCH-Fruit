@@ -1,6 +1,11 @@
 @extends('login.master')
 @section('main')
-<form method="POST" action="{{ route('loginPage.store') }}">
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+<form method="POST" action="{{ route('login') }}">
     @csrf
     
         <div class="container py-5 h-100">
@@ -24,7 +29,7 @@
                             </div>
                             <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
                             <hr class="my-4">
-                            <a href="{{ route('loginPage.create')}}" class="btn btn-lg btn-block btn-primary" style="background-color: #4540d9;"
+                            <a href="{{ route('register')}}" class="btn btn-lg btn-block btn-primary" style="background-color: #4540d9;"
                                 type="submit"><i class="fa-solid fa-user-plus"></i> Sign up with form</a>
                             {{-- <button class="btn btn-lg btn-block btn-primary" style="background-color: #dd4b39;"
                                 type="submit"><i class="fa-brands fa-google-plus-g"></i> Sign in with google</button>

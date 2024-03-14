@@ -70,7 +70,7 @@
                     </ul>
                 </li>
                 <li><a href="./blog.html">Blog</a></li>
-                <li><a href="{{ route('loginPage.index')}}">Contact</a></li>
+                <li><a href="{{ route('loginPage')}}">Contact</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -120,7 +120,7 @@
                                 </ul>
                             </div>
                             <div class="header__top__right__auth">
-                                <a href="{{ route('loginPage.index')}}"><i class="fa fa-user"></i>Login</a>
+                                <a href="{{ route('loginPage')}}"><i class="fa fa-user"></i>Login</a>
                             </div>
                         </div>
                     </div>

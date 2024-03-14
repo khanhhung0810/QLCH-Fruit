@@ -1,6 +1,10 @@
 @extends('admin.masterAdmin')
 @section('main')
-
+@if (session('message'))
+    <div class="alert alert-success">
+        {{ session('name') . ', ' . session('message') }}
+    </div>
+@endif
 <section>
    
  <style>
