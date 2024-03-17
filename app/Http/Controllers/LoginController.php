@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -47,8 +48,8 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            session(['name' => Auth::user()->name]);
-            return redirect()->route('product.index')->with('message', 'Đăng nhập thành công');
+            Session::flash('message', 'Đăng nhập thành công');
+            return redirect()->route('product.index');
         } else {
             return back()->with('login_error', 'Email hoặc mật khẩu không đúng');
         }

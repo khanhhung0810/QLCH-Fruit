@@ -17,10 +17,6 @@ class AdminController extends Controller
     {
         $products = Product::all();
 
-        //     $category = Category::with('products')->find(1);
-        //     dd($category->products);
-        //     $product = Product::with('category')->find('SP03');
-        //     dd($product->category);
         return view('admin.dashboard', compact('products'));
     }
 

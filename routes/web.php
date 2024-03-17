@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfileController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
@@ -32,7 +33,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/category', CategoryController::class)->parameter('category','categories')->names('categories');
 });
 
-// Route::resource('/login-page', LoginController::class)->parameter('login','loginPage')->names('loginPage');
 Route::get('/login-page', [LoginController::class, 'index'])->name('loginPage');
 
 Route::get('/register', [LoginController::class, 'create'])->name('register');
@@ -40,17 +40,26 @@ Route::post('/register', [LoginController::class, 'store'])->name('register.stor
 
 Route::post('/login-page', [LoginController::class, 'login'])->name('login');
 
-// Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
-// Route::get('/test', [AdminController::class, 'create'])->name('test');
+Route::middleware(['auth', 'correctUser'])->group(function () {
+    Route::resource('/profile', ProfileController::class)->parameter('profile','profilePage')->names('profilePage');
+});
+
+
+// Route::resource('/login-page', LoginController::class)->parameter('login','loginPage')->names('loginPage');
 
 // Route::get('/dashboard/create_product', [AdminController::class, 'create'])->name('createProduct');
 // Route::post('/dashboard/create_product', [AdminController::class, 'store'])->name('store');
 
-// Route::get('/dashboard/delete_product', [AdminController::class, 'delete'])->name('deleteProduct');
-// Route::post('/dashboard/delete_product', [AdminController::class, 'udelete'])->name('delete');
 
-// Route::get('/dashboard/edit_product', [AdminController::class, 'edit'])->name('editProduct');
 
-//  Route::get('/shop', function () {
-//     return view('frontend.shop');
-// });
+
+
+
+
+
+
+
+
+
+
+
