@@ -39,7 +39,7 @@ Route::get('/register', [LoginController::class, 'create'])->name('register');
 Route::post('/register', [LoginController::class, 'store'])->name('register.store');
 
 Route::post('/login-page', [LoginController::class, 'login'])->name('login');
-
+Route::post('/logout',  [LoginController::class, 'logout'])->name('logout');
 Route::middleware(['auth', 'correctUser'])->group(function () {
     Route::resource('/profile', ProfileController::class)->parameters(['profile' => 'profilePage'])->names('profilePage');
 });

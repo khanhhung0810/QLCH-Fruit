@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,13 +19,20 @@ class CorrectUserMiddleware
     public function handle(Request $request, Closure $next)
 
     {
-        $user = User::find();
+        try {
 
-        if ($user->id != Auth::user()->id) {
-           
-            return redirect()->back();
+            $userID = $request->route()?->parameter('profilePage');
+            $user = User::find($userID);
+            $isCurrentUser = $user->is(Auth::user());
+            abort_if(!$isCurrentUser, 403, 'Dont have permission');
+            return $next($request);
+
+        } catch (\Throwable $th) {
+            Log::error('User not found: ' . $th->getMessage());
+            return response()->json(['error' => 'Go Back']);
         }
-
-        return $next($request);
+        
+    
     }
 }
+

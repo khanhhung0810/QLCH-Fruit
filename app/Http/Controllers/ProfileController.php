@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class ProfileController extends Controller
 {
@@ -16,6 +17,7 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
+
         return view('admin.profile', ['user' => $user]);
     }
 
@@ -41,14 +43,15 @@ class ProfileController extends Controller
     public function show(string $profilePage) 
     {
         $user = User::find($profilePage);
-        return view('admin.profile', ['user' => $user]); 
+        return view('admin.profile', compact('user')); 
     }
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $profilePage)  
     {
-        //
+        $user = User::find($profilePage);
+        return view('login.edit_profile', compact('user')); 
     }
 
     /**
@@ -57,10 +60,12 @@ class ProfileController extends Controller
     public function update(ProfileRequest $request, string $profilePage) 
     {
         $user = User::find($profilePage);
-        dd($profilePage);
+        // dd($profilePage);
     
         $user->update($request->all());
-        return redirect()->back()->with('message', 'Profile updated!');
+        Log::info('User Updated');
+
+        return redirect()->route('profilePage.show', ['profilePage' => $user->id])->with('message', 'Profile updated!');
     }
 
     /**

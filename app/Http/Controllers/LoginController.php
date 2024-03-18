@@ -54,6 +54,16 @@ class LoginController extends Controller
             return back()->with('login_error', 'Email hoặc mật khẩu không đúng');
         }
     }
+    
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('loginPage');
+    }
     /**
      * Display the specified resource.
      */
