@@ -57,7 +57,7 @@ class ProfileController extends Controller
     public function update(ProfileRequest $request, string $profilePage) 
     {
         $user = User::find($profilePage);
-        
+        dd($profilePage);
     
         $user->update($request->all());
         return redirect()->back()->with('message', 'Profile updated!');

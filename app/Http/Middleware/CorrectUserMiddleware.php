@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class CorrectUserMiddleware
@@ -14,11 +15,12 @@ class CorrectUserMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $profilePage)
-    {
-        $user = User::find($profilePage);
+    public function handle(Request $request, Closure $next)
 
-        if ($user->id != auth()->id()) {
+    {
+        $user = User::find();
+
+        if ($user->id != Auth::user()->id) {
            
             return redirect()->back();
         }

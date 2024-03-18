@@ -2,7 +2,7 @@
 @section('main')
 @if (session('message'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ session('name') . ', ' . session('message') }}
+        {{ Auth::user()?->name . ', ' . session('message') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
