@@ -64,8 +64,8 @@ class ProfileController extends Controller
     
         $user->update($request->all());
         Log::info('User Updated');
-
-        return redirect()->route('profilePage.show', ['profilePage' => $user->id])->with('message', 'Profile updated!');
+        return response()->json(['success' => true, 'message' => 'Profile Updated !! ']);
+        
     }
 
     /**

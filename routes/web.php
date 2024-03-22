@@ -1,10 +1,12 @@
 <?php
-
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\EmailController;
+use App\Mail\VerifyEmail;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
@@ -40,11 +42,17 @@ Route::post('/register', [LoginController::class, 'store'])->name('register.stor
 
 Route::post('/login-page', [LoginController::class, 'login'])->name('login');
 Route::post('/logout',  [LoginController::class, 'logout'])->name('logout');
+
 Route::middleware(['auth', 'correctUser'])->group(function () {
     Route::resource('/profile', ProfileController::class)->parameters(['profile' => 'profilePage'])->names('profilePage');
 });
 
+Route::get('/verify',  [EmailController::class, 'verifyEmails'])->name('verify');
 
+Route::get('/test',function(){
+    Mail::to("khanhhung7444@gmail.com")->send(new VerifyEmail);
+    return 123;
+});
 // Route::resource('/login-page', LoginController::class)->parameter('login','loginPage')->names('loginPage');
 
 // Route::get('/dashboard/create_product', [AdminController::class, 'create'])->name('createProduct');

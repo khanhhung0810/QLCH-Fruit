@@ -29,7 +29,7 @@ class CorrectUserMiddleware
 
         } catch (\Throwable $th) {
             Log::error('User not found: ' . $th->getMessage());
-            return response()->json(['error' => 'Go Back']);
+            return redirect()->back()->with('error', 'Go Back');
         }
         
     
