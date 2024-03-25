@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Mail\VerifyEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 
 class EmailController extends Controller
 {
@@ -16,18 +17,52 @@ class EmailController extends Controller
      */
     public function verifyEmails()
     {
+        $user = Auth::user();
+        $verifyURL = URL::temporarySignedRoute( 'user.verify', now()->addSeconds(1), ['id' => $user->id]);
 
-        $users = Auth::user();
-        // dd($users->email);
-            // Kiểm tra xem người dùng đã xác minh email chưa
-            
-                Mail::to($users->email)->send(new VerifyEmail);
+        // Kiểm tra xem người dùng đã xác minh email chưa
+        Mail::to($user->email)->send(new VerifyEmail($user, $verifyURL));
 
-            
-           
-        
         return response()->json(['success' => true, 'message' => ' Verification emails sent! ']);
     }
+
+    public function verify($id)
+    {
+        $user = User::where('id', $id)->whereNULL('email_verified_at')->firstOrFail();
+        $user->update(['email_verified_at' => date('Y-m-d H:i:s')]);
+
+        return redirect()->route('loginPage')->with('Verify Success !!');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function index()
     {
