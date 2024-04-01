@@ -61,10 +61,10 @@ class AdminController extends Controller
     }
 
     public function destroy($product)
-    {
-
-        Product::query()->find($product)->delete();
-        return redirect()->back();
+    {   
+        Product::destroy($product); 
+        return redirect()->route('product.index')->with('success', 'Product deleted successfully');
+    
     }
 
 

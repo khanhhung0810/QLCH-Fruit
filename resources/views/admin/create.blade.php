@@ -40,10 +40,10 @@
             <tr>
                 <th>Ảnh sản phẩm</th>
                 <td>
-                    {{-- <input type="file" name="AnhSP[]" multiple> --}}
-                    <div id="my-element">
+                    <input type="file" name="AnhSP[]" multiple>
+                    {{-- <div id="my-element">
                         <div class="dz-message needsclick">Drop files here or click to upload.<BR></div>
-                    </div>
+                    </div> --}}
                 </td>
             </tr>
             <tr>
