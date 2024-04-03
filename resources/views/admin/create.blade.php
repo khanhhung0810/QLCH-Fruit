@@ -168,8 +168,11 @@
         // });
 
         const dropzone = new Dropzone("div#my-element", {
-            url: "/file/post"
+            url: "/file/post",
+            maxFiles: 100,
+            uploadMultiple: true,
         });
+
         // Dropzone.options.photo = {
 
         //     // The camelized version of the ID of the form element

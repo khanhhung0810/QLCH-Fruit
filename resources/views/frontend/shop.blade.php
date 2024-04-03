@@ -28,16 +28,7 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="hero__search">
-                        <div class="hero__search__form">
-                            <form action="#">
-                                <div class="hero__search__categories">
-                                    All Categories
-                                    <span class="arrow_carrot-down"></span>
-                                </div>
-                                <input type="text" placeholder="What do yo u need?">
-                                <button type="submit" class="site-btn">SEARCH</button>
-                            </form>
-                        </div>
+                        @include('shared.search-bar')
                         <div class="hero__search__phone">
                             <div class="hero__search__phone__icon">
                                 <i class="fa fa-phone"></i>
@@ -62,8 +53,8 @@
                     <div class="breadcrumb__text">
                         <h2>Organi Shop</h2>
                         <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
-                            <span>Shop</span>
+                            <a href="{{ url('shop')}}">Shop</a>
+                            <span>Products</span>
                         </div>
                     </div>
                 </div>
@@ -416,11 +407,12 @@
                             </div>
                         @endforeach
                     </div>
-                    <div class="product__pagination">
-                        <a href="#">1</a>
+                    <div>
+                        {{ $products->links('pagination::bootstrap-5') }}
+                        {{-- <a href="#">1</a>
                         <a href="#">2</a>
                         <a href="#">3</a>
-                        <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                        <a href="#"><i class="fa fa-long-arrow-right"></i></a> --}}
                     </div>
                 </div>
             </div>

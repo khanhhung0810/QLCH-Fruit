@@ -70,8 +70,11 @@
             }
         </style>
         <title>Quản lý Sản phẩm</title>
+        
         <h1>Quản lý Sản phẩm</h1>
+        
         <table>
+            
             <tr>
                 <th>Mã sản phẩm</th>
                 <th>Tên sản phẩm</th>
@@ -125,7 +128,7 @@
                             <a class="button " href="{{ route('product.show', ['product' => $item->MaSP]) }}"><i
                                     class="fa-solid fa-circle-info"></i></a>
 
-                            <button type="submit" class="button"><i class="fa-solid fa-trash"></i></button>
+                            <button type="submit" class="button delete-btn"><i class="fa-solid fa-trash"></i></button>
                         </form>
 
 
@@ -143,7 +146,7 @@
 
 @section('customjs')
     <script>
-        $('button[type="submit"]').on('click', function(e) {
+        $('.delete-btn').on('click', function(e) {
             e.preventDefault();
 
             swal({

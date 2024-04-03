@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+
 Route::get('/', [TemplateController::class, 'index'])->name('index');
 Route::get('/ex', [TemplateController::class, 'example']);
 Route::get('/shop', [TemplateController::class, 'shopProducts'])->name('shop');
