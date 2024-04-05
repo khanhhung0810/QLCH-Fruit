@@ -40,7 +40,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/login-page', [LoginController::class, 'index'])->name('loginPage');
 
-Route::get('/register', [LoginController::class, 'create'])->name('register');
+Route::get('/register', [LoginController::class, 'create'])->name('register');  
 Route::post('/register', [LoginController::class, 'store'])->name('register.store');
 
 Route::post('/login-page', [LoginController::class, 'login'])->name('login');

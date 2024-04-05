@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 use function PHPUnit\Framework\returnSelf;
 
@@ -16,6 +17,7 @@ class AdminController extends Controller
     public function index()
     {
         $products = Product::all();
+        
 
         return view('admin.dashboard', compact('products'));
     }
