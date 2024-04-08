@@ -46,4 +46,12 @@ class TemplateController extends Controller
         $product = Product::query()->where("MaSP", "=", $maSP)->first();
         return view('frontend.product_details', compact('product'));
     }
+
+    public function cart() {
+        return view('frontend.cart');
+    }
+    public function addToCart($maSP)  {
+        $product = Product::findOrFail($maSP);
+        
+    }
 }

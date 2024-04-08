@@ -6,8 +6,8 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-    <section>
 
+    <section>
         <style>
             button {
                 border: none;
@@ -70,9 +70,7 @@
             }
         </style>
         <title>Quản lý Sản phẩm</title>
-
         <h1>Quản lý Sản phẩm</h1>
-
         {{-- <table>
             <tr>
                 <th>Mã sản phẩm</th>
@@ -137,7 +135,6 @@
 
         </table> --}}
         <a href="{{ route('product.create') }}" class="button ">Thêm sản phẩm</a>
-
     </section>
 
     <table id="myTable" class="display" style="width:100%">
@@ -153,53 +150,15 @@
                 <th>Chức năng</th>
             </tr>
         </thead>
-        <tbody>
-            @foreach ($products as $item)
-                <tr>
-                    <td>{{ $item->MaSP }}</td>
-                    <td>{{ $item->TenSP }}</td>
-                    <td>
-                        @foreach ($item->category as $category)
-                            {{ $category->name }}
-                            @if (!$loop->last)
-                                ,
-                                <!-- Đưa ra dấu phẩy nếu không phải là danh mục cuối cùng -->
-                            @endif
-                        @endforeach
-                    </td>
-                    <td>{{ $item->description }}</td>
-                    <td>
-                        @php
-                            $productImages = json_decode($item->AnhSP);
-                        @endphp
-                        <img src="{{ url('images/' . Arr::first($productImages)) }}" alt="" width="120">
-                    </td>
-                    <td>{{ number_format($item->Gia, 0) }}₫</td>
-                    <td>{{ $item->SoLuong }}</td>
-                    <td>
-                        <form action="{{ route('product.destroy', $item->MaSP) }}" method="post">
-                            @csrf
-                            @method('delete')
-
-                            <a class="button " href="{{ route('product.edit', ['product' => $item->MaSP]) }} "><i
-                                    class="fa fa-solid fa-pen-to-square"></i></a>
-                            <a class="button " href="{{ route('product.show', ['product' => $item->MaSP]) }}"><i
-                                    class="fa-solid fa-circle-info"></i></a>
-
-                            <button type="submit" class="button delete-btn"><i class="fa-solid fa-trash"></i></button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-
     </table>
 @endsection
 
 @section('customjs')
     <script>
-        $('.delete-btn').on('click', function(e) {
+        $('#myTable').on('click', '.delete-btn', function(e) {
             e.preventDefault();
+
+            const form = $(this).closest("form");
 
             swal({
                     title: "Bạn có chắc muốn xóa sản phẩm?",
@@ -214,7 +173,7 @@
                             icon: "success",
                         });
                         // If user clicks on Yes, submit the form
-                        $(this).closest("form").submit();
+                        form.submit();
                     }
                 });
         });
@@ -222,14 +181,47 @@
 
         $(document).ready(function() {
             $('#myTable').DataTable({
-                pageLength: 6,
-
-                layout: {
-                    topStart: 'info',
-                    bottom: 'paging',
-                    bottomStart: null,
-                    bottomEnd: null
-                }
+                serverSide: true,
+                processing: true,
+                ajax: '{{ route('product.index') }}',
+                columns: [{
+                        data: 'MaSP',
+                        name: 'MaSP'
+                    },
+                    {
+                        data: 'TenSP',
+                        name: 'TenSP'
+                    },
+                    {
+                        data: 'LoaiSP',
+                        name: 'LoaiSP'
+                    },
+                    {
+                        data: 'description',
+                        name: 'description'
+                    },
+                    {
+                        data: 'AnhSP',
+                        name: 'AnhSP',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'Gia',
+                        name: 'Gia'
+                    },
+                    {
+                        data: 'SoLuong',
+                        name: 'SoLuong'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ],
+                pageLength: 6
             });
         });
     </script>

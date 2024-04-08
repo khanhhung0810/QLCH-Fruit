@@ -8,18 +8,49 @@ use App\Models\Category;
 use App\Models\Product;
 use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\URL as FacadesURL;
 use Yajra\DataTables\DataTables;
+use URL;
 
 use function PHPUnit\Framework\returnSelf;
 
 class AdminController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
-        
+        if ($request->ajax()) {
+            $products = Product::with('category')->get();
 
-        return view('admin.dashboard', compact('products'));
+            return DataTables::of($products)
+                ->editColumn('AnhSP', function ($product) {
+                    $productImages = json_decode($product->AnhSP);
+                    return '<img src="' . url('images/' . Arr::first($productImages)) . '" alt="" width="120">';
+                })
+                ->editColumn('Gia', function ($product) {
+                    return number_format($product->Gia, 0) . '₫';
+                })
+                ->addColumn('LoaiSP', function ($product) {
+                    return $product->category->pluck('name')->implode(', ');
+                })
+                ->addColumn('action', function ($product) {
+                    $editUrl = route('product.edit', ['product' => $product->MaSP]);
+                    $showUrl = route('product.show', ['product' => $product->MaSP]);
+                    $deleteUrl = route('product.destroy', $product->MaSP);
+
+                    return '<form action="' . $deleteUrl . '" method="post">
+                            ' . csrf_field() . '
+                            ' . method_field("delete") . '
+                            <a href="' . $editUrl . '" class="btn btn-sm btn-primary"><i class="fa fa-solid fa-pen-to-square"></i></a>
+                            <a href="' . $showUrl . '" class="btn btn-sm btn-info"><i class="fa-solid fa-circle-info"></i></a>
+                            <button type="submit" class="btn btn-sm btn-danger delete-btn"><i class="fa-solid fa-trash"></i></button>
+                        </form>';
+                })
+                ->rawColumns(['AnhSP', 'action', 'LoaiSP'])
+                ->make(true);
+        }
+
+        return view('admin.dashboard');
     }
 
     public function create()
@@ -29,56 +60,53 @@ class AdminController extends Controller
     }
 
     public function store(AddProductPostRequest $request)
-    {   
+    {
         try {
-                $images = [];
-                $path = 'images';
-                 //request->files(); lấy hết những file đã được upload.
-                // // dd($request->file('AnhSP'));
-                foreach ($request->file('AnhSP') as $file) {
-                    $name = $file->getClientOriginalName();
-                    $file->move(public_path($path), $name);
-                    $images[] = $name;
-                    // $images[] = ['img' => $name, 'url' => 'images/' . $name];
-                    // Lưu tên tệp ảnh vào mảng
-                }
-                $data = $request->all();
-                if (count($images) > 1) {
-                    $data['AnhSP'] = json_encode($images); // Nhiều hình ảnh
-                } else {
-                    $data['AnhSP'] = json_encode([$images[0]]); // Một hình ảnh
-                }        
+            $images = [];
+            $path = 'images';
+            //request->files(); lấy hết những file đã được upload.
+            // // dd($request->file('AnhSP'));
+            foreach ($request->file('AnhSP') as $file) {
+                $name = $file->getClientOriginalName();
+                $file->move(public_path($path), $name);
+                $images[] = $name;
+                // $images[] = ['img' => $name, 'url' => 'images/' . $name];
+                // Lưu tên tệp ảnh vào mảng
+            }
+            $data = $request->all();
+            if (count($images) > 1) {
+                $data['AnhSP'] = json_encode($images); // Nhiều hình ảnh
+            } else {
+                $data['AnhSP'] = json_encode([$images[0]]); // Một hình ảnh
+            }
 
-                $product = Product::create($data);
+            $product = Product::create($data);
 
-                $product->category()->sync($data['LoaiSP']);
-        
+            $product->category()->sync($data['LoaiSP']);
 
-                return response()->json(['message' =>' Thêm sp']);
-           
+
+            return response()->json(['message' => ' Thêm Sản Phẩm Thành Công']);
         } catch (\Throwable $th) {
             return response()->json(['message' => $th->getMessage()]);
         }
-       
     }
 
     public function destroy($product)
-    {   
-        Product::destroy($product); 
+    {
+        Product::destroy($product);
         return redirect()->route('product.index')->with('success', 'Product deleted successfully');
-    
     }
 
 
     public function edit(String $product)
     {
-        
+
         $product = Product::findOrFail($product);
         $categories = Category::all();
         $productCategories = $product->category;
         $productCategoryIds = [];
-        foreach ($productCategories as $category){
-            $productCategoryIds[]=$category->id;
+        foreach ($productCategories as $category) {
+            $productCategoryIds[] = $category->id;
         }
         return view('admin.edit_product', compact('product', 'categories', 'productCategoryIds'));
     }
@@ -86,54 +114,52 @@ class AdminController extends Controller
 
     public function show(string $product)
     {
-    
+
         $product = Product::findOrFail($product);
         $categories = Category::all();
         $productCategories = $product->category;
         $productCategoryIds = [];
-        foreach ($productCategories as $category){
-            $productCategoryIds[]=$category->id;
+        foreach ($productCategories as $category) {
+            $productCategoryIds[] = $category->id;
         }
         // dd($productIds);
-        return view('admin.show', compact('product', 'categories','productCategoryIds'));
+        return view('admin.show', compact('product', 'categories', 'productCategoryIds'));
     }
 
     public function update(Request $request, string $product)
-{
-    $product = Product::findOrFail($product);
-    $data = $request->except('LoaiSP');
+    {
+        $product = Product::findOrFail($product);
+        $data = $request->except('LoaiSP');
 
-    try {
-        if ($request->hasFile('AnhSP')) {
-            $images = [];
-            $path = 'images';
-            // dd($request->file('AnhSP'));
-            foreach ($request->file('AnhSP') as $file) {
-                $name = $file->getClientOriginalName();
-                $file->move(public_path($path), $name);
-                $images[] = $name;
+        try {
+            if ($request->hasFile('AnhSP')) {
+                $images = [];
+                $path = 'images';
+                // dd($request->file('AnhSP'));
+                foreach ($request->file('AnhSP') as $file) {
+                    $name = $file->getClientOriginalName();
+                    $file->move(public_path($path), $name);
+                    $images[] = $name;
+                }
+
+                if (count($images) > 1) {
+                    $data['AnhSP'] = json_encode($images); // Nhiều hình ảnh
+                } else {
+                    $data['AnhSP'] = json_encode([$images[0]]); // Một hình ảnh
+                }
+
+                // Lấy ảnh đầu tiên để hiển thị
             }
 
-            if (count($images) > 1) {
-                $data['AnhSP'] = json_encode($images); // Nhiều hình ảnh
-            } else {
-                $data['AnhSP'] = json_encode([$images[0]]); // Một hình ảnh
+            $product->update($data);
+
+            if ($request->has('LoaiSP')) {
+                $product->category()->sync($request->input('LoaiSP'));
             }
 
-            // Lấy ảnh đầu tiên để hiển thị
+            return redirect('dashboard')->with('success', 'Cập nhật sản phẩm thành công');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-
-        $product->update($data);
-
-        if ($request->has('LoaiSP')) {
-            $product->category()->sync($request->input('LoaiSP'));
-        }
-
-        return redirect('dashboard')->with('success', 'Cập nhật sản phẩm thành công');
-    } catch (\Throwable $th) {
-        return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
     }
-}
-
-
 }

@@ -391,8 +391,8 @@
                                         data-setbg="{{ url('images/' . Arr::first($productImages)) }}">
                                         <ul class="product__item__pic__hover">
                                             <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                            <li><a href="{{ route('productDetails', ['maSP' => $product->MaSP]) }}"><i
+                                            <li><a href="{{ route('productDetails', ['maSP' => $product->MaSP]) }}"><i class="fa-solid fa-circle-info"></i></a></li>
+                                            <li><a href="#"><i
                                                         class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>

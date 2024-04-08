@@ -11,6 +11,7 @@ use App\Mail\VerifyEmail;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\Template\Template;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [TemplateController::class, 'index'])->name('index');
 Route::get('/ex', [TemplateController::class, 'example']);
+Route::get('/cart', [TemplateController::class, 'cart'])->name('cart');
+Route::get('/add-to-cart/{maSP}', [TemplateController::class, 'addToCart'])->name('add-to-cart');
 Route::get('/shop', [TemplateController::class, 'shopProducts'])->name('shop');
 Route::get('/shop/product_details/{maSP}', [TemplateController::class, 'productDetails'])->name('productDetails');
 
