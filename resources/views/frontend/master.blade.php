@@ -158,7 +158,11 @@
                     <div class="header__cart">
                         <ul>
                             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="{{ url('cart') }}"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+
+                            <li class="dropdown " ><a href="{{ url('cart') }}"><i class="fa fa-shopping-bag"></i><span></span></a>
+                            
+                            
+                            </li> 
                         </ul>
                         <div class="header__cart__price">item: <span>$150.00</span></div>
                     </div>
@@ -265,7 +269,7 @@
     <script src="{{ asset('site/js/main.js') }}"></script>
 
 
-
+    @yield('customjs')
 </body>
 
 </html>

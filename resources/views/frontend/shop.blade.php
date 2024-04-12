@@ -392,8 +392,7 @@
                                         <ul class="product__item__pic__hover">
                                             <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                             <li><a href="{{ route('productDetails', ['maSP' => $product->MaSP]) }}"><i class="fa-solid fa-circle-info"></i></a></li>
-                                            <li><a href="#"><i
-                                                        class="fa fa-shopping-cart"></i></a></li>
+                                            <li><a href="{{ route('add-to-cart', ['maSP' => $product->MaSP]) }}"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
                                     <div class="product__item__text">
