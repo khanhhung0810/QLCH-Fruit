@@ -157,14 +157,15 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+                            <li><a href="#"><i class="fa fa-heart"></i> </a></li>
 
-                            <li class="dropdown " ><a href="{{ url('cart') }}"><i class="fa fa-shopping-bag"></i><span></span></a>
-                            
-                            
-                            </li> 
+                            <li class="dropdown " ><a href="{{ url('cart') }}"><i class="fa fa-shopping-bag"></i><span class="cart-quantity">{{ count((array) session('cart')) }}</span></a></li> 
                         </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
+                        @php $total = 0 @endphp
+                        @foreach((array) session('cart') as $MaSP => $details)
+                            @php $total += $details['Gia'] * $details['quantity'] @endphp
+                        @endforeach
+                        <div class="header__cart__price">item: <span>{{ number_format($total, 0, '', ',') }}₫</span></div>
                     </div>
                 </div>
             </div>

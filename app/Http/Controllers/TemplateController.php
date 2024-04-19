@@ -53,33 +53,42 @@ class TemplateController extends Controller
         return view('frontend.cart', ['cart' => $cart]);
         // return view('frontend.cart');
     }
-    
+
     public function addToCart($maSP)
-{
-    $product = Product::findOrFail($maSP);
+    {
+        $product = Product::findOrFail($maSP);
 
-    $cart = session()->get('cart', []);
+        $cart = session()->get('cart', []);
 
-    if (!array_key_exists($product->MaSP, $cart)) {
-        $cart[$product->MaSP] = [
-            'quantity' => 1,
-            'Gia' => $product->Gia,
-            'TenSP' => $product->TenSP,
-            'AnhSP' => $product->AnhSP,
-        ];
-    } else {
-        $cart[$product->MaSP]['quantity']++;
+        if (!array_key_exists($product->MaSP, $cart)) {
+            $cart[$product->MaSP] = [
+                'quantity' => 1,
+                'Gia' => $product->Gia,
+                'TenSP' => $product->TenSP,
+                'AnhSP' => $product->AnhSP,
+            ];
+        } else {
+            $cart[$product->MaSP]['quantity']++;
+        }
+
+        session()->put('cart', $cart);
+
+        return redirect()->back()->with('success', 'Product added to cart successfully!');
     }
-
-    session()->put('cart', $cart);
-
-    return redirect()->back()->with('success', 'Product added to cart successfully!');
-}
+    public function update(Request $request)
+    {
+        if ($request->MaSP && $request->quantity) {
+            $cart = session()->get('cart');
+            $cart[$request->MaSP]["quantity"] = $request->quantity;
+            session()->put('cart', $cart);
+            session()->flash('success', 'Cart successfully updated!');
+        }
+    }
     public function remove(Request $request)
     {
-        if($request->MaSP) {
+        if ($request->MaSP) {
             $cart = session()->get('cart');
-            if(isset($cart[$request->MaSP])) {
+            if (isset($cart[$request->MaSP])) {
                 unset($cart[$request->MaSP]);
                 session()->put('cart', $cart);
             }

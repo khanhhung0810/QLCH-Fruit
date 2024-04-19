@@ -34,7 +34,9 @@ Route::get('/ex', [TemplateController::class, 'example']);
 
 Route::get('/cart', [TemplateController::class, 'cart'])->name('cart');
 // Route::get('/cart', [TemplateController::class, 'addToCart'])->name('cart.addToCart');
-Route::delete('/remove-from-cart', [TemplateController::class, 'remove'])->name('remove_from_cart');
+Route::post('/remove-from-cart', [TemplateController::class, 'remove'])->name('remove_from_cart');
+
+Route::patch('update-cart', [TemplateController::class, 'update'])->name('update_cart');
 
 Route::get('/add-to-cart/{maSP}', [TemplateController::class, 'addToCart'])->name('add-to-cart');
 Route::get('/shop', [TemplateController::class, 'shopProducts'])->name('shop');
