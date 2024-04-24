@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\PaymentController;
 use App\Mail\VerifyEmail;
 use App\Models\Category;
 use App\Models\User;
@@ -33,15 +34,13 @@ Route::get('/', [TemplateController::class, 'index'])->name('index');
 Route::get('/ex', [TemplateController::class, 'example']);
 
 Route::get('/cart', [TemplateController::class, 'cart'])->name('cart');
-// Route::get('/cart', [TemplateController::class, 'addToCart'])->name('cart.addToCart');
 Route::post('/remove-from-cart', [TemplateController::class, 'remove'])->name('remove_from_cart');
-
 Route::patch('update-cart', [TemplateController::class, 'update'])->name('update_cart');
-
 Route::get('/add-to-cart/{maSP}', [TemplateController::class, 'addToCart'])->name('add-to-cart');
+
 Route::get('/shop', [TemplateController::class, 'shopProducts'])->name('shop');
 Route::get('/shop/product_details/{maSP}', [TemplateController::class, 'productDetails'])->name('productDetails');
-
+Route::get('/shop/category/{category}', [TemplateController::class, 'chooseCategory'])->name('shop.category');
 Route::middleware(['auth'])->group(function () {
     Route::resource('/dashboard', AdminController::class)->parameter('dashboard', 'product')->names('product');
     Route::resource('/category', CategoryController::class)->parameter('category', 'categories')->names('categories');
@@ -63,7 +62,8 @@ Route::get('/verify',  [EmailController::class, 'verifyEmails'])->name('verify')
 Route::get('/verify-email/{id}', [EmailController::class, 'verify'])->name('user.verify')->middleware('signed');
 // Route::get('/verify-email/{id}',  [EmailController::class, 'verify'])->name('user.verify');
 
-
+//Cổng thanh toán
+Route::post('/vnpay_payment', [PaymentController::class, 'vnpay_payment'])->name('payment');
 
 Route::get('/test', function () {
     $verifyURL= 1;

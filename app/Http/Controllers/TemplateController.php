@@ -37,8 +37,9 @@ class TemplateController extends Controller
                 return $query->where('TenSP', 'like', '%' . $search . '%');
             })
             ->paginate(6);
+        $categories = Category::all();
 
-        return view('frontend.shop', compact('products'));
+        return view('frontend.shop', compact('products', 'categories'));
     }
 
     public function productDetails($maSP)
@@ -84,6 +85,7 @@ class TemplateController extends Controller
             session()->flash('success', 'Cart successfully updated!');
         }
     }
+
     public function remove(Request $request)
     {
         if ($request->MaSP) {
@@ -94,5 +96,17 @@ class TemplateController extends Controller
             }
             session()->flash('success', 'Product successfully removed!');
         }
+    }
+    public function checkCart()
+    {
+        dd(session('cart'));
+    }
+
+    public function chooseCategory(Category $category)
+    {
+        $products = $category->products()->paginate(6);
+        $categories = Category::all();
+
+        return view('frontend.shop', compact('products', 'categories'));
     }
 }

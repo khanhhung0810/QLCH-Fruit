@@ -62,14 +62,8 @@
                     </div>
                     <div class="product__details__price">{{ number_format($product->Gia,0)}}₫</div>
                     <p>{{$product->description}}</p>
-                    <div class="product__details__quantity">
-                        <div class="quantity">
-                            <div class="pro-qty">
-                                <input type="text" value="1">
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#" class="primary-btn">ADD TO CARD</a>
+
+                    <a href="{{ route('add-to-cart', ['maSP' => $product->MaSP]) }}" class="primary-btn">ADD TO CARD</a>
                     <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                     <ul>
                         <li> <b>Category</b> 
@@ -96,7 +90,7 @@
                 </div>  
             </div>
             
-            <div class="col-lg-12">
+            <div class="col-lg-12"> 
                 <div class="product__details__tab">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">

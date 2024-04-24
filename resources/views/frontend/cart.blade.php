@@ -1,6 +1,6 @@
 @extends('frontend.master')
 @section('main')
-
+    </div>
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="{{ asset('site/img/breadcrumb.jpg') }}">
         <div class="container">
@@ -49,12 +49,14 @@
                                             <td data-th="Gia" class="shoping__cart__price">
                                                 {{ number_format($product['Gia'], 0, '', ',') }}₫
                                             </td>
+
                                             <td data-th="Quantity" class="shoping__cart__quantity quantity ">
                                                 <div class="style">
                                                     <input type="number" value="{{ $product['quantity'] }}"
-                                                        class=" quantity cart_update" min="0" />
+                                                        class=" quantity cart_update" min="1" />
                                                 </div>
                                             </td>
+
                                             <td data-th="Subtotal" class="shoping__cart__total">
                                                 {{ number_format($product['Gia'] * $product['quantity'], 0, '', ',') }}₫
                                             </td>
@@ -76,14 +78,18 @@
                         <a href="{{ url('shop') }}" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
                     </div>
                 </div>
-
                 <div class="col-lg-6">
                     <div class="shoping__checkout">
                         <h5>Cart Total</h5>
                         <ul>
                             <li>Total <span>{{ number_format($total, 0, '', ',') }}₫</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                        
+                        <form action="{{ route('payment') }}" method="POST">
+                            @csrf
+                            <input name="total" value="{{ number_format($total, 0, '', ',')}}"  type="hidden">
+                            <button name="redirect" type="submit" class="primary-btn">PLACE ORDER</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -116,31 +122,10 @@
 
 @section('customjs')
     <script>
-        // $(".cart_update").change(function(e) {
-        //     e.preventDefault();
-        //     var ele = $(this);
-        //     var quantity = ele.val();
-
-        //     $.ajax({
-        //         url: '{{ route('update_cart') }}',
-        //         method: "patch",
-        //         data: {
-        //             _token: '{{ csrf_token() }}',
-        //             MaSP: ele.parents("tr").attr("data-id"),
-        //             quantity: quantity
-        //         },
-        //         success: function(response) {
-        //             window.location.reload();
-        //         },
-        //         error: function(jqXHR, textStatus, errorThrown) {
-        //             console.log(textStatus, errorThrown);
-        //         }
-        //     });
-        // });
         $(".cart_update").change(function(e) {
             e.preventDefault();
             var ele = $(this);
-            var quantity = ele.val(); // get quantity
+            var quantity = ele.val();
 
             $.ajax({
                 url: '{{ route('update_cart') }}',
@@ -151,11 +136,6 @@
                     quantity: quantity
                 },
                 success: function(response) {
-                    // add the new quantity to the current quantity
-                    var currentQuantity = parseInt($("span.cart-quantity").text());
-                    $("span.cart-quantity").text(currentQuantity + parseInt(quantity));
-
-                    // reload the page
                     window.location.reload();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
@@ -163,6 +143,7 @@
                 }
             });
         });
+
         $(".cart_remove").click(function(e) {
             e.preventDefault();
             var ele = $(this);

@@ -159,7 +159,7 @@
                         <ul>
                             <li><a href="#"><i class="fa fa-heart"></i> </a></li>
 
-                            <li class="dropdown " ><a href="{{ url('cart') }}"><i class="fa fa-shopping-bag"></i><span class="cart-quantity">{{ count((array) session('cart')) }}</span></a></li> 
+                            <li class="dropdown " ><a href="{{ url('cart') }}"><i class="fa fa-shopping-bag"></i><span class="cart-quantity">{{ collect(session('cart'))->sum('quantity') }}</span></a></li> 
                         </ul>
                         @php $total = 0 @endphp
                         @foreach((array) session('cart') as $MaSP => $details)
@@ -168,6 +168,7 @@
                         <div class="header__cart__price">item: <span>{{ number_format($total, 0, '', ',') }}₫</span></div>
                     </div>
                 </div>
+                
             </div>
             <div class="humberger__open">
                 <i class="fa fa-bars"></i>
