@@ -171,6 +171,7 @@ return [
         Jenssegers\Agent\AgentServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
     ])->toArray(),
+    'debug' => env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
