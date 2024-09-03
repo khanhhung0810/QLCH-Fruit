@@ -71,13 +71,11 @@
         <select id="product_type" name="LoaiSP[]" multiple="true">
             @foreach($categories as $category)
                 @php
-                    $isSelect = false;
-                    $categoryId = $category->id;
-                    if (in_array($categoryId, $productCategoryIds)) 
-                       $isSelect = true;
-                    // Kiểm tra xem phần tử có trong mảng khác không
+                    
+                    $isSelect = in_array($category->id, $productCategoryIds);
+                    
                 @endphp
-                    <option  value="{{ $category->id }}" @selected($isSelect) >{{ $category->name }}</option>  
+                    <option value="{{ $category->id }}" @if($isSelect) selected @endif>{{ $category->name }}</option>
             @endforeach
         </select>
         <label for="product_description">Mô tả sản phẩm:</label>

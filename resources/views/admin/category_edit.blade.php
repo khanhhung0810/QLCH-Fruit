@@ -12,8 +12,8 @@
       <label for="status" class="form-label">Trạng thái</label>
         <select class="form-select" id="status" name="status"  aria-label="Default select example" value={{$categoryEdit->status}}>
             <option selected>Chọn trạng thái</option>
-            <option value="0">Trạng thái 0</option>
-            <option value="1">Trạng thái 1</option>
+            <option value="0">Hiển thị danh mục</option>
+            <option value="1">Ẩn danh mục</option>
         </select>
     </div>
     

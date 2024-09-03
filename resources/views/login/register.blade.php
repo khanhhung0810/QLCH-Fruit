@@ -21,14 +21,45 @@
                                                 <input type="text" id="name" name="name" class="form-control"
                                                     placeholder="Your Name" />
 
+                                                @error('name')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+
                                             </div>
                                         </div>
+                                        {{-- <div class="d-flex flex-row align-items-center mb-4">
+                                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                            <div class="form-outline flex-fill mb-0">
+                                                <input type="text" id="phone" name="phone" class="form-control"
+                                                    placeholder="Your phone" />
+
+                                                @error('phone')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                            <div class="form-outline flex-fill mb-0">
+                                                <input type="text" id="address" name="address" class="form-control"
+                                                    placeholder="Your address" />
+
+                                                @error('address')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+
+                                            </div>
+                                        </div> --}}
 
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
                                                 <input type="email" id="email" name="email" class="form-control"
                                                     placeholder="Your Email" />
+                                                @error('email')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
 
                                             </div>
                                         </div>
@@ -38,6 +69,9 @@
                                             <div class="form-outline flex-fill mb-0">
                                                 <input type="password" id="password" name="password" class="form-control"
                                                     placeholder="Password" />
+                                                @error('password')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
 
                                             </div>
                                         </div>
@@ -47,6 +81,9 @@
                                             <div class="form-outline flex-fill mb-0">
                                                 <input type="password" id="form3Example4cd" name="password_confirmation"
                                                     class="form-control" placeholder="Repeat your password" />
+                                                @error('password')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
 
@@ -75,7 +112,6 @@
 @endsection
 @section('customjs')
     <script>
-
         document.addEventListener("DOMContentLoaded", function() {
             var usernameInput = document.getElementById("email");
             var defaultPlaceholder = "Email";

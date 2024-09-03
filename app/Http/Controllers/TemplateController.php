@@ -13,20 +13,13 @@ class TemplateController extends Controller
 {
     public function index()
     {
-
-        return view('frontend.home');
+        $categories = Category::where('status', 0)->get();
+        $products = Product::with('categories')->get();
+        return view('frontend.home', compact('categories','products'));
+        // return view('frontend.home', compact('categories','products'));
     }
 
-    public function example()
-    {
-        $numberOfProduct = 10;
-        $data = [
-            'Cách 1' => 1,
-            'Cách 2' => 2,
-            'Cách 3' => 3,
-        ];
-        return view('frontend.ex', compact('numberOfProduct', 'data'));
-    }
+   
 
     public function shopProducts(Request $request)
     {
@@ -37,7 +30,7 @@ class TemplateController extends Controller
                 return $query->where('TenSP', 'like', '%' . $search . '%');
             })
             ->paginate(6);
-        $categories = Category::all();
+        $categories = Category::where('status', 0)->get();
 
         return view('frontend.shop', compact('products', 'categories'));
     }
@@ -105,7 +98,7 @@ class TemplateController extends Controller
     public function chooseCategory(Category $category)
     {
         $products = $category->products()->paginate(6);
-        $categories = Category::all();
+        $categories = Category::where('status', 0)->get();
 
         return view('frontend.shop', compact('products', 'categories'));
     }

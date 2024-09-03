@@ -24,6 +24,7 @@ class LoginRequest extends FormRequest
         return [
             'email' => 'required|email|exists:users,email',
             'password' => 'required',
+            // 'name' => 'required',
         ];
     }
 
@@ -34,6 +35,7 @@ class LoginRequest extends FormRequest
             'email.email' => 'Email không hợp lệ.',
             'email.exists' => 'Email này chưa được đăng ký.',
             'password.required' => 'Yêu cầu điền mật khẩu.',
+            // 'name.required' => 'Yêu cầu điền họ tên.',
         ];
     }
 }

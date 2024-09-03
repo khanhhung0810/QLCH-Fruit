@@ -1,6 +1,5 @@
 @extends('frontend.master')
 @section('main')
-    {{-- @dd(Route::currentRouteName())  --}}
     <!-- Hero Section Begin -->
     <section class="hero hero-normal">
         <div class="container">
@@ -12,17 +11,9 @@
                             <span>All departments</span>
                         </div>
                         <ul>
-                            <li><a href="#">Fresh Meat</a></li>
-                            <li><a href="#">Vegetables</a></li>
-                            <li><a href="#">Fruit & Nut Gifts</a></li>
-                            <li><a href="#">Fresh Berries</a></li>
-                            <li><a href="#">Ocean Foods</a></li>
-                            <li><a href="#">Butter & Eggs</a></li>
-                            <li><a href="#">Fastfood</a></li>
-                            <li><a href="#">Fresh Onion</a></li>
-                            <li><a href="#">Papayaya & Crisps</a></li>
-                            <li><a href="#">Oatmeal</a></li>
-                            <li><a href="#">Fresh Bananas</a></li>
+                            @foreach ($categories as $category)
+                                <li><a href="{{ route('shop.category', $category->id) }}">{{ $category->name }}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -53,7 +44,7 @@
                     <div class="breadcrumb__text">
                         <h2>Organi Shop</h2>
                         <div class="breadcrumb__option">
-                            <a href="{{ url('shop')}}">Shop</a>
+                            <a href="{{ url('shop') }}">Shop</a>
                             <span>Products</span>
                         </div>
                     </div>
@@ -72,11 +63,11 @@
                         <div class="sidebar__item">
                             <h4>Categories</h4>
                             <ul>
-                                @foreach($categories as $category)
-                                    <li><a href="{{route('shop.category', $category->id)}}">{{$category->name}}</a></li>
+                                @foreach ($categories as $category)
+                                    <li><a href="{{ route('shop.category', $category->id) }}">{{ $category->name }}</a></li>
                                 @endforeach
                             </ul>
-                         </div>
+                        </div>
                         <div class="sidebar__item">
                             <h4>Price</h4>
                             <div class="price-range-wrap">
@@ -94,73 +85,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="sidebar__item sidebar__item__color--option">
-                            <h4>Colors</h4>
-                            <div class="sidebar__item__color sidebar__item__color--white">
-                                <label for="white">
-                                    White
-                                    <input type="radio" id="white">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--gray">
-                                <label for="gray">
-                                    Gray
-                                    <input type="radio" id="gray">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--red">
-                                <label for="red">
-                                    Red
-                                    <input type="radio" id="red">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--black">
-                                <label for="black">
-                                    Black
-                                    <input type="radio" id="black">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--blue">
-                                <label for="blue">
-                                    Blue
-                                    <input type="radio" id="blue">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--green">
-                                <label for="green">
-                                    Green
-                                    <input type="radio" id="green">
-                                </label>
-                            </div>
-                        </div>
-                        <div class="sidebar__item">
-                            <h4>Popular Size</h4>
-                            <div class="sidebar__item__size">
-                                <label for="large">
-                                    Large
-                                    <input type="radio" id="large">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__size">
-                                <label for="medium">
-                                    Medium
-                                    <input type="radio" id="medium">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__size">
-                                <label for="small">
-                                    Small
-                                    <input type="radio" id="small">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__size">
-                                <label for="tiny">
-                                    Tiny
-                                    <input type="radio" id="tiny">
-                                </label>
-                            </div>
-                        </div>
-                        
+
+
+
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-7">
@@ -178,8 +105,10 @@
                                         data-setbg="{{ url('images/' . Arr::first($productImages)) }}">
                                         <ul class="product__item__pic__hover">
                                             <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                            <li><a href="{{ route('productDetails', ['maSP' => $product->MaSP]) }}"><i class="fa-solid fa-circle-info"></i></a></li>
-                                            <li><a href="{{ route('add-to-cart', ['maSP' => $product->MaSP]) }}"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <li><a href="{{ route('productDetails', ['maSP' => $product->MaSP]) }}"><i
+                                                        class="fa-solid fa-circle-info"></i></a></li>
+                                            <li><a href="{{ route('add-to-cart', ['maSP' => $product->MaSP]) }}"><i
+                                                        class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
                                     <div class="product__item__text">
@@ -195,7 +124,7 @@
                     </div>
                     <div>
                         {{ $products->links('pagination::bootstrap-5') }}
-                        
+
                     </div>
                 </div>
             </div>

@@ -43,7 +43,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource.  
      */
     public function show(string $id)
     {
@@ -77,7 +77,7 @@ class CategoryController extends Controller
      */
     public function destroy($categories)
     {
-        Category::query()->find($categories)->delete();
-        return redirect()->back();
+        Category::destroy($categories);
+        return redirect()->route('categories.index')->with('success', 'Product deleted successfully');
     }
 }

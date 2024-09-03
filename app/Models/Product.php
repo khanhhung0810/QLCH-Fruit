@@ -15,11 +15,10 @@ class Product extends Model
     public $timestamps = false;
     public $incrementing = false;
     public $casts  = ['MaSP' => 'string'];
-    public function category()
+    
+    public function categories()
     {
         return $this->belongsToMany(Category::class, 'category_product',  'product_id', 'category_id');
-        // return $this->belongsTo(Category::class, 'LoaiSP', 'id);
-
     }
     
 }

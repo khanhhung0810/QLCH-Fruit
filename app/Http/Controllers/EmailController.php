@@ -18,7 +18,7 @@ class EmailController extends Controller
     public function verifyEmails()
     {
         $user = Auth::user();
-        $verifyURL = URL::temporarySignedRoute( 'user.verify', now()->addSeconds(1), ['id' => $user->id]);
+        $verifyURL = URL::temporarySignedRoute( 'user.verify', now()->addMinutes(1), ['id' => $user->id]);
 
         // Kiểm tra xem người dùng đã xác minh email chưa
         Mail::to($user->email)->send(new VerifyEmail($user, $verifyURL));

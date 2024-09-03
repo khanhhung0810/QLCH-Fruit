@@ -18,15 +18,15 @@
                 @if($item->status == 0)
                 Đã hiển thị danh mục
                 @else
-                Không hiển thị danh mục
+                Ẩn hiển thị danh mục
                 @endif
             </td>
             <td>
                 <a class="button col-md-4 " href="{{ route('categories.edit',['categories'=>$item->id]) }} "><i class="fa fa-solid fa-pen-to-square"></i></a>
-                <form action="{{ route('categories.destroy',['categories'=>$item->id]) }}" method="post">
+                <form id="myCategories" action="{{ route('categories.destroy',['categories'=>$item->id]) }}" method="post">
                     @csrf
                     @method('delete')
-                <button type="submit" class="button col-md-4" ><i class="fa-solid fa-trash"></i></button>
+                <button type="submit" class="button col-md-4 delete-btn" ><i class="fa-solid fa-trash"></i></button>
                 </form>
             </td>
         </tr>
@@ -87,4 +87,31 @@
     }
 
  </style>
+@endsection
+
+@section('customjs')
+<script>
+    $('#myCategories').on('click', '.delete-btn', function(e) {
+            e.preventDefault();
+
+            const form = $(this).closest("form");
+
+            swal({
+                    title: "Bạn có chắc muốn xóa danh mục?",
+                    text: "Khi xóa, bạn sẽ không khôi phục lại được",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        swal("Bạn đã xóa danh mục thành công", {
+                            icon: "success",
+                        });
+                        // If user clicks on Yes, submit the form
+                        form.submit();
+                    }
+                });
+        });
+</script>
 @endsection

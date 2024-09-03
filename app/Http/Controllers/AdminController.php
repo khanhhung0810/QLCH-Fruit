@@ -20,7 +20,7 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $products = Product::with('category')->get();
+            $products = Product::with('categories')->get();
 
             return DataTables::of($products)
                 ->editColumn('AnhSP', function ($product) {
@@ -31,7 +31,7 @@ class AdminController extends Controller
                     return number_format($product->Gia, 0) . '₫';
                 })
                 ->addColumn('LoaiSP', function ($product) {
-                    return $product->category->pluck('name')->implode(', ');
+                    return $product->categories->pluck('name')->implode(', ');
                 })
                 ->addColumn('action', function ($product) {
                     $editUrl = route('product.edit', ['product' => $product->MaSP]);
@@ -82,7 +82,7 @@ class AdminController extends Controller
 
             $product = Product::create($data);
 
-            $product->category()->sync($data['LoaiSP']);
+            $product->categories()->sync($data['LoaiSP']);
 
 
             return response()->json(['message' => ' Thêm Sản Phẩm Thành Công']);
@@ -93,7 +93,11 @@ class AdminController extends Controller
 
     public function destroy($product)
     {
-        Product::destroy($product);
+      
+        $product = Product::findOrFail($product); // Truy vấn đối tượng Product
+        $product->categories()->detach(); // Ngắt liên kết với các danh mục
+
+        $product->delete(); // Xóa sản phẩm
         return redirect()->route('product.index')->with('success', 'Product deleted successfully');
     }
 
@@ -103,7 +107,7 @@ class AdminController extends Controller
 
         $product = Product::findOrFail($product);
         $categories = Category::all();
-        $productCategories = $product->category;
+        $productCategories = $product->categories;
         $productCategoryIds = [];
         foreach ($productCategories as $category) {
             $productCategoryIds[] = $category->id;
@@ -117,10 +121,10 @@ class AdminController extends Controller
 
         $product = Product::findOrFail($product);
         $categories = Category::all();
-        $productCategories = $product->category;
+        $productCategories = $product->categories;
         $productCategoryIds = [];
-        foreach ($productCategories as $category) {
-            $productCategoryIds[] = $category->id;
+        foreach ($productCategories as $categories) {
+            $productCategoryIds[] = $categories->id;
         }
         // dd($productIds);
         return view('admin.show', compact('product', 'categories', 'productCategoryIds'));
@@ -154,7 +158,7 @@ class AdminController extends Controller
             $product->update($data);
 
             if ($request->has('LoaiSP')) {
-                $product->category()->sync($request->input('LoaiSP'));
+                $product->categories()->sync($request->input('LoaiSP'));
             }
 
             return redirect('dashboard')->with('success', 'Cập nhật sản phẩm thành công');

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers; 
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
@@ -46,12 +46,13 @@ class LoginController extends Controller
     public function login(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
+        
 
         if (Auth::attempt($credentials)) {
             Session::flash('message', 'Đăng nhập thành công');
             return redirect()->route('product.index');
         } else {
-            return back()->with('login_error', 'Email hoặc mật khẩu không đúng');
+            return back()->with('login_error', 'Mật khẩu không đúng.');
         }
     }
     
