@@ -60,9 +60,10 @@ Route::post('/logout',  [LoginController::class, 'logout'])->name('logout');
 Route::middleware(['auth', 'correctUser'])->group(function () {
     Route::resource('/profile', ProfileController::class)->parameters(['profile' => 'profilePage'])->names('profilePage');
 });
-// ,'verified.email'
+// ,'verifyEmail'
 Route::get('/verify',  [EmailController::class, 'verifyEmails'])->name('verify');
 Route::get('/verify-email/{id}', [EmailController::class, 'verify'])->name('user.verify')->middleware('signed');
+
 // Route::get('/verify-email/{id}',  [EmailController::class, 'verify'])->name('user.verify');
 
 //Cổng thanh toán

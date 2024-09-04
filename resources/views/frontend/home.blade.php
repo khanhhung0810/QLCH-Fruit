@@ -45,41 +45,24 @@
         </div>
     </section>
     <!-- Hero Section End -->
-    <!-- Categories Section Begin -->
-    <section class="categories">
+     <!-- Banner Begin -->
+     <div class="banner">
         <div class="container">
             <div class="row">
-                <div class="categories__slider owl-carousel">
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="{{ asset('site/img/categories/cat-1.jpg') }}">
-                            <h5><a href="#">Fresh Fruit</a></h5>
-                        </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="banner__pic">
+                        <img src="{{ asset('site/img/banner/banner-2.jpg') }}" alt="">
                     </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="{{ asset('site/img/categories/cat-2.jpg') }}">
-                            <h5><a href="#">Dried Fruit</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="{{ asset('site/img/categories/cat-3.jpg') }}">
-                            <h5><a href="#">Vegetables</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="{{ asset('site/img/categories/cat-4.jpg') }}">
-                            <h5><a href="#">drink fruits</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="{{ asset('site/img/categories/cat-5.jpg') }}">
-                            <h5><a href="#">drink fruits</a></h5>
-                        </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="banner__pic">
+                        <img src="{{ asset('site/img/banner/banner-1.jpg') }}" alt="">
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- Categories Section End -->
+    </div>
+    <!-- Banner End -->
 
     <!-- Featured Section Begin -->
     <section class="featured spad">

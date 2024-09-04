@@ -30,8 +30,9 @@ class EmailController extends Controller
     {
         $user = User::where('id', $id)->whereNULL('email_verified_at')->firstOrFail();
         $user->update(['email_verified_at' => date('Y-m-d H:i:s')]);
+        // $user->markEmailAsVerified();
 
-        return redirect()->route('loginPage')->with('Verify Success !!');
+        return redirect()->route('loginPage')->with('success', 'Email verified successfully!');
     }
 
 

@@ -123,8 +123,8 @@ class AdminController extends Controller
         $categories = Category::all();
         $productCategories = $product->categories;
         $productCategoryIds = [];
-        foreach ($productCategories as $categories) {
-            $productCategoryIds[] = $categories->id;
+        foreach ($productCategories as $category) {
+            $productCategoryIds[] = $category->id;
         }
         // dd($productIds);
         return view('admin.show', compact('product', 'categories', 'productCategoryIds'));
